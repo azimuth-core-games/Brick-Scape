@@ -15,3 +15,13 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# C#/.NET specific ignores
+.vs/
+bin/
+obj/
+*.csproj.user
+
+# IDE-specific (uncomment what your team actually uses)
+.idea/      # Rider
+# .vscode/  # VS Code (some teams do want to share launch.json — your call)
