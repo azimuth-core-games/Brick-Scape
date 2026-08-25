@@ -9,7 +9,7 @@ public partial class Paddle : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		float direction = Input.GetAxis("move_left", "move_right");
+		var direction = Input.GetAxis("move_left", "move_right");
 		Velocity = new Godot.Vector2(direction * Speed, 0);
 		MoveAndSlide();
 
