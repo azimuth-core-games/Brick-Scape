@@ -6,6 +6,7 @@
 size = Vector2(100, 20)
 
 [node name="Paddle" type="CharacterBody2D" unique_id=1055233572]
+collision_layer = 2
 script = ExtResource("1_3xiby")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=802715204]
