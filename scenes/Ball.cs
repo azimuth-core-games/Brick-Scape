@@ -4,7 +4,7 @@ using System;
 public partial class Ball : CharacterBody2D
 {
 	[Export]
-	public float Speed = 400.0f;
+	public float Speed { get; set; } = 400.0f;
 
     public override void _Ready()
     {
@@ -14,13 +14,14 @@ public partial class Ball : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		var collision = MoveAndCollide(Velocity * (float)delta);
+
 		if (collision != null)
 		{
 			var collider = collision.GetCollider(); //colliding obj
 
 			if (collider is Paddle paddle)
 			{
-				var paddleWidth = 100f;
+				var paddleWidth = paddle.Width;
 
 				var offset = (Position.X - paddle.Position.X) / (paddleWidth / 2f);
 				offset = Mathf.Clamp(offset, -1f, 1f);
