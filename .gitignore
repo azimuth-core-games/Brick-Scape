@@ -22,6 +22,10 @@ bin/
 obj/
 *.csproj.user
 
-# IDE-specific (uncomment what your team actually uses)
-.idea/      # Rider
-# .vscode/  # VS Code (some teams do want to share launch.json — your call)
+# IDE-specific
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
