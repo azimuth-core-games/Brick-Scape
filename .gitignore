@@ -23,5 +23,9 @@ obj/
 *.csproj.user
 
 # IDE-specific
-.idea/      # Rider
-.vscode/    # VS Code
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/   
