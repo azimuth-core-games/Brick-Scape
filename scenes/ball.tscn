@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://br7wuc8rna3dc"]
+
+[ext_resource type="Texture2D" path="res://art/pixel-ball-white.png" id="1_7s4qf"]
+[ext_resource type="Script" path="res://scenes/Ball.cs" id="1_cxlvu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1dj2"]
+radius = 22.0
+
+[node name="Ball" type="CharacterBody2D" unique_id=418967550]
+collision_mask = 14
+script = ExtResource("1_cxlvu")
+Speed = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=401232087]
+shape = SubResource("CircleShape2D_n1dj2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1756877514]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_7s4qf")
