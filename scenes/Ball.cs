@@ -8,8 +8,8 @@ public partial class Ball : CharacterBody2D
 	[Export] public Vector2 InitialVelocity { get; set; } = new Vector2(150, -300);
 
 	//Set difficulty (higher angle => harder)
-	[Export] private float MaxBounceAngleDegrees { get; set; } = 60f;
-	private float MaxBounceAngle => Mathf.DegToRad(MaxBounceAngleDegrees);
+	[Export] private float _maxBounceAngleDegrees = 60f;
+	private float MaxBounceAngle => Mathf.DegToRad(_maxBounceAngleDegrees);
 
 	public override void _Ready()
 	{
