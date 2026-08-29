@@ -1,6 +1,21 @@
 [gd_scene format=3 uid="uid://c67yfrt80lwcp"]
 
+[ext_resource type="PackedScene" uid="uid://br7wuc8rna3dc" path="res://scenes/ball.tscn" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://c55j3kbfxq33r" path="res://scenes/paddle.tscn" id="1_o5qli"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_e0djs"]
+b = Vector2(0, 648)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_v2cug"]
+a = Vector2(1152, 0)
+b = Vector2(1152, 648)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_svowp"]
+b = Vector2(1152, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dxfcs"]
+a = Vector2(0, 648)
+b = Vector2(1152, 648)
 
 [node name="Main" type="Node2D" unique_id=1486628709]
 
@@ -15,5 +30,37 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.38747874, 0.51931673, 0.6546371, 1)
 
+[node name="Ball" parent="." unique_id=418967550 instance=ExtResource("1_0wfyh")]
+position = Vector2(580, 300)
+
 [node name="Paddle" parent="." unique_id=1055233572 instance=ExtResource("1_o5qli")]
 position = Vector2(608, 574)
+
+[node name="Left" type="StaticBody2D" parent="." unique_id=333467540]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left" unique_id=67274032]
+shape = SubResource("SegmentShape2D_e0djs")
+
+[node name="Right" type="StaticBody2D" parent="." unique_id=99288626]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right" unique_id=426171851]
+shape = SubResource("SegmentShape2D_v2cug")
+
+[node name="Top" type="StaticBody2D" parent="." unique_id=1807225210]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top" unique_id=24857642]
+shape = SubResource("SegmentShape2D_svowp")
+
+[node name="TestBottom" type="StaticBody2D" parent="." unique_id=874699280]
+position = Vector2(-3, 8)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBottom" unique_id=2082577839]
+shape = SubResource("SegmentShape2D_dxfcs")
