@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dghdnafodte0y"]
+
+[ext_resource type="Script" uid="uid://dkkif373yan11" path="res://scenes/brick/Brick.cs" id="1_n1yom"]
+[ext_resource type="Texture2D" uid="uid://jgvkc5q3ppwc" path="res://assets/pixel-brick-pink.png" id="2_bldsh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0djs"]
+size = Vector2(65, 26)
+
+[node name="Brick" type="StaticBody2D" unique_id=1861813627]
+collision_layer = 4
+script = ExtResource("1_n1yom")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=18485270]
+texture = ExtResource("2_bldsh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=54880168]
+position = Vector2(0, -0.75)
+shape = SubResource("RectangleShape2D_e0djs")
