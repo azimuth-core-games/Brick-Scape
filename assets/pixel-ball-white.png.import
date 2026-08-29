@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://110xhvuk30lu"
-path="res://.godot/imported/pixel-ball-white.png-06981f3c5bce9ec85e90a38ae9a5a940.ctex"
+path="res://.godot/imported/pixel-ball-white.png-3c3e46ea53ec5a4472924c3c8134ecde.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/pixel-ball-white.png"
-dest_files=["res://.godot/imported/pixel-ball-white.png-06981f3c5bce9ec85e90a38ae9a5a940.ctex"]
+source_file="res://assets/pixel-ball-white.png"
+dest_files=["res://.godot/imported/pixel-ball-white.png-3c3e46ea53ec5a4472924c3c8134ecde.ctex"]
 
 [params]
 
