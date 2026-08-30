@@ -47,11 +47,11 @@ public partial class Ball : CharacterBody2D
 		}
 		
 		// Calculate where on paddle ball hit as a number from [-1,1]
-		var offset = (Position.X - paddle.Position.X) / (paddle.Width / 2f);
-		offset = Mathf.Clamp(offset, -1f, 1f);
+		var normalizedHitPosition = (Position.X - paddle.Position.X) / (paddle.Width / 2f);
+		normalizedHitPosition = Mathf.Clamp(normalizedHitPosition, -1f, 1f);
 
 		// Get a different angle depending on where ball hit paddle
-		var bounceAngle = offset * MaxBounceAngle;
+		var bounceAngle = normalizedHitPosition * MaxBounceAngle;
 		
 		// Using trig to find new x and y. Sin(angle) = x/Speed and Cos(angle) = -y/Speed
 		Velocity = new Vector2(Speed * Mathf.Sin(bounceAngle), -Speed * Mathf.Cos(bounceAngle));
