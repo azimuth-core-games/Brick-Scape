@@ -22,22 +22,39 @@ public partial class Ball : CharacterBody2D
 		if (collision is null) return;
 
 		var collider = collision.GetCollider(); //colliding obj
-		if (collider is not Paddle paddle)
+		switch (collider)
 		{
+			case Paddle paddle:
+				HandlePaddleCollision(paddle, collision);
+				break;
+			case Brick brick:
+				brick.Hit();
+				Velocity = Velocity.Bounce(collision.GetNormal());
+				break;
+			default:
+				Velocity = Velocity.Bounce(collision.GetNormal());
+				break;
+		}
+	}
+
+	private void HandlePaddleCollision(Paddle paddle, KinematicCollision2D collision)
+	{
+		if (paddle.Width <= 0f)
+		{
+			GD.PushWarning("Paddle width 0. Using default bounce function.");
 			Velocity = Velocity.Bounce(collision.GetNormal());
 			return;
 		}
+		
+		// Calculate where on paddle ball hit as a number from [-1,1]
+		var normalizedHitPosition = (Position.X - paddle.Position.X) / (paddle.Width / 2f);
+		normalizedHitPosition = Mathf.Clamp(normalizedHitPosition, -1f, 1f);
 
-		var paddleWidth = paddle.Width;
-
-		var offset = (Position.X - paddle.Position.X) / (paddleWidth / 2f);
-		offset = Mathf.Clamp(offset, -1f, 1f);
-
-		var bounceAngle = offset * MaxBounceAngle;
-		Velocity = new Godot.Vector2(
-			Speed * Mathf.Sin(bounceAngle),
-			-Speed * Mathf.Cos(bounceAngle)
-		);
+		// Get a different angle depending on where ball hit paddle
+		var bounceAngle = normalizedHitPosition * MaxBounceAngle;
+		
+		// Using trig to find new x and y. Sin(angle) = x/Speed and Cos(angle) = -y/Speed
+		Velocity = new Vector2(Speed * Mathf.Sin(bounceAngle), -Speed * Mathf.Cos(bounceAngle));
 	}
 
 }
