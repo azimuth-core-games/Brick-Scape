@@ -3,3 +3,6 @@ A nostalgic 2D brick pong style game. Break all the bricks by bouncing the ball 
 
 ### Tools
 - Godot with C#
+
+### Features
+- To be completed
