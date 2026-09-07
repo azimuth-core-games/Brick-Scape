@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dghdnafodte0y"]
 
 [ext_resource type="Script" uid="uid://dkkif373yan11" path="res://scenes/brick/Brick.cs" id="1_n1yom"]
-[ext_resource type="Texture2D" uid="uid://jgvkc5q3ppwc" path="res://assets/pixel-brick-pink.png" id="2_bldsh"]
+[ext_resource type="Texture2D" uid="uid://c7gkhqx0osxik" path="res://assets/pink-brick.png" id="2_k3dtg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e0djs"]
 size = Vector2(65, 26)
@@ -11,8 +11,9 @@ collision_layer = 4
 script = ExtResource("1_n1yom")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=18485270]
-texture = ExtResource("2_bldsh")
+scale = Vector2(2, 2)
+texture = ExtResource("2_k3dtg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=54880168]
-position = Vector2(0, -0.75)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_e0djs")
