@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://br7wuc8rna3dc" path="res://scenes/ball/ball.tscn" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://c55j3kbfxq33r" path="res://scenes/paddle/paddle.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://dy3bmf704smgh" path="res://assets/space-bkg.png" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://bntnl4im4tg6p" path="res://scenes/BrickGrid.cs" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dghdnafodte0y" path="res://scenes/brick/brick.tscn" id="4_tbgi4"]
 
@@ -24,13 +25,14 @@ b = Vector2(1152, 648)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=239418751]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=805725092]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1939718432]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.38747874, 0.51931673, 0.6546371, 1)
+texture = ExtResource("1_tbgi4")
+stretch_mode = 1
 
 [node name="Ball" parent="." unique_id=418967550 instance=ExtResource("1_0wfyh")]
 position = Vector2(580, 300)
