@@ -24,6 +24,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="brick-pong-2D"
 
+[global_group]
+
+ball=""
+
 [input]
 
 move_left={
