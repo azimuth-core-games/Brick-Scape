@@ -4,16 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://c7gkhqx0osxik" path="res://assets/pink-brick.png" id="2_k3dtg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e0djs"]
-size = Vector2(65, 26)
+size = Vector2(32, 13.5)
 
 [node name="Brick" type="StaticBody2D" unique_id=1861813627]
+scale = Vector2(2, 2)
 collision_layer = 4
 script = ExtResource("1_n1yom")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=18485270]
-scale = Vector2(2, 2)
 texture = ExtResource("2_k3dtg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=54880168]
-position = Vector2(0, -1)
+position = Vector2(0, -0.75)
 shape = SubResource("RectangleShape2D_e0djs")

@@ -3,53 +3,81 @@ using System;
 
 public partial class BrickGrid : Node2D
 {
+	// Pass signal up from each individual brick
+	[Signal]
+	public delegate void BrickDestroyedEventHandler(int points);
+	
 	// allows selection of scene to use for grid (Brick)
-	[Export] public PackedScene BrickGridScene;
+	[Export] private PackedScene _brickScene;
 
-	[Export] public int Rows = 4;
-	[Export] public int Columns = 8;
-
-	// Pixel size of brick png is 64x24 pixels
-	[Export] public Vector2 BrickSize = new Vector2(64, 24);
-	[Export] public Vector2 Spacing = new Vector2(4, 4);
+	private int _rows = 8;
+	private int _cols = 16;
+	private Vector2 _brickSize;
 
 	// Padding added to top of grid in viewport
-	[Export] public int PaddingTopPixels = 50;
-	
-	
-	// Called when the node enters the scene tree for the first time.
+	private int _paddingTopPixels = 50;
+
 	public override void _Ready()
 	{
-		// Width of bricks together with spacing between (cols - 1)
-		var totalWidth = Columns * BrickSize.X + (Columns - 1) * Spacing.X;
-		var viewportWidth = GetViewportRect().Size.X;
-		// Height of bricks together with spacing between (rows - 1)
-		var totalHeight = Rows * BrickSize.Y + (Rows - 1) * Spacing.Y;
-		var viewportHeight = GetViewportRect().Size.Y;
 		
-		// Find where to start bricks x-position in middle of viewport.
-		var startX = (viewportWidth - totalWidth) / 2f;
+		//Check PackedScene set in editor
+		GD.Print($"in BrickGrid -- BrickGridScene: {_brickScene}");
+	
+	}
 
-		if (totalHeight > viewportHeight || totalWidth > viewportWidth)
-		{
-			GD.PrintErr("Too many rows and/or columns were provided.");
-		}
+	public void ResetGrid()
+	{
+		ClearBricks();
+		GenerateBrickGrid();
+	}
+
+	private void CenterGrid()
+	{
+		var totalGridSize = new Vector2(_cols * _brickSize.X, _rows * _brickSize.Y);
+		var viewPortSize = GetViewportRect().Size;
 		
-		for (var row = 0; row < Rows; row++)
+		Position = new Vector2((viewPortSize.X - totalGridSize.X)/ 2f, _paddingTopPixels);
+	}
+
+	private void ClearBricks()
+	{
+		foreach (Node child in GetChildren())
 		{
-			for (var col = 0; col < Columns; col++)
+			if (child is Brick brick)
 			{
-				var brick = (Node2D)BrickGridScene.Instantiate();
-				brick.Position = new Vector2(
-					startX + col * (BrickSize.X + Spacing.X), 
-					PaddingTopPixels + row * (BrickSize.Y + Spacing.Y));
-				AddChild(brick);
+				brick.QueueFree();
 			}
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void GenerateBrickGrid()
 	{
+		var brickSpacing = 4f;
+		
+		// Get brick size once
+		var sampleBrick = _brickScene.Instantiate<Brick>();
+		_brickSize = sampleBrick.Size;
+		
+		for (var row = 0; row < _rows; row++)
+		{
+			for (var col = 0; col < _cols; col++)
+			{
+				var brick = _brickScene.Instantiate<Brick>();
+				
+				brick.Position = new Vector2(
+					col * (_brickSize.X + brickSpacing), 
+					row * (_brickSize.Y + brickSpacing)
+					);
+				brick.BrickDestroyed += OnBrickDestroyed;
+				AddChild(brick);
+			}
+		}
+		
+		CenterGrid();
+	}
+
+	private void OnBrickDestroyed(int points)
+	{
+		EmitSignal(SignalName.BrickDestroyed, points);
 	}
 }
