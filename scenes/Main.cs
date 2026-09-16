@@ -9,8 +9,12 @@ public partial class Main : Node2D
 	private int _lives = 3;
 	private int _score = 0;
 
+	private NodePool<Ball> _ballPool;
+
 	public override void _Ready()
 	{
+		_ballPool = new NodePool<Ball>(_ballScene, this);
+
 		//Check scenes have been set
 		GD.Print($"\nin Main -- _ballScene: {_ballScene}\n _hud: {_hud}\n _brickGrid: {_brickGrid}");
 		
@@ -38,9 +42,11 @@ public partial class Main : Node2D
 	}
 	
 
-	private void OnBallLost()
+	private void OnBallLost(Node2D lostBall)
 	{
-		_lives--; 
+		_ballPool.Release((Ball)lostBall);
+
+		_lives--;
 		_hud.UpdateLives(_lives);
 
 		if (_lives <= 0)
@@ -56,9 +62,8 @@ public partial class Main : Node2D
 	
 	private void SpawnNewBall()
 	{
-		var ball = _ballScene.Instantiate<Ball>();
+		var ball = _ballPool.Acquire();
 		ball.Position = new Vector2(400, 400);
-		AddChild(ball);
 	}
 	
 	private void OnBrickDestroyed(int points)

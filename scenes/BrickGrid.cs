@@ -6,7 +6,7 @@ public partial class BrickGrid : Node2D
 	// Pass signal up from each individual brick
 	[Signal]
 	public delegate void BrickDestroyedEventHandler(int points);
-	
+
 	// allows selection of scene to use for grid (Brick)
 	[Export] private PackedScene _brickScene;
 
@@ -17,17 +17,21 @@ public partial class BrickGrid : Node2D
 	// Padding added to top of grid in viewport
 	private int _paddingTopPixels = 50;
 
+	private NodePool<Brick> _brickPool;
+
 	public override void _Ready()
 	{
-		
+		_brickPool = new NodePool<Brick>(_brickScene, this,
+			onCreate: brick => brick.BrickDestroyed += points => OnBrickDestroyed(brick, points));
+
 		//Check PackedScene set in editor
 		GD.Print($"in BrickGrid -- BrickGridScene: {_brickScene}");
-	
+
 	}
 
 	public void ResetGrid()
 	{
-		ClearBricks();
+		_brickPool.ReleaseAll();
 		GenerateBrickGrid();
 	}
 
@@ -35,49 +39,38 @@ public partial class BrickGrid : Node2D
 	{
 		var totalGridSize = new Vector2(_cols * _brickSize.X, _rows * _brickSize.Y);
 		var viewPortSize = GetViewportRect().Size;
-		
-		Position = new Vector2((viewPortSize.X - totalGridSize.X)/ 2f, _paddingTopPixels);
-	}
 
-	private void ClearBricks()
-	{
-		foreach (Node child in GetChildren())
-		{
-			if (child is Brick brick)
-			{
-				brick.QueueFree();
-			}
-		}
+		Position = new Vector2((viewPortSize.X - totalGridSize.X)/ 2f, _paddingTopPixels);
 	}
 
 	private void GenerateBrickGrid()
 	{
 		var brickSpacing = 4f;
-		
-		// Get brick size once
-		var sampleBrick = _brickScene.Instantiate<Brick>();
-		_brickSize = sampleBrick.Size;
-		
+
 		for (var row = 0; row < _rows; row++)
 		{
 			for (var col = 0; col < _cols; col++)
 			{
-				var brick = _brickScene.Instantiate<Brick>();
-				
+				var brick = _brickPool.Acquire();
+
+				if (_brickSize == Vector2.Zero)
+				{
+					_brickSize = brick.Size;
+				}
+
 				brick.Position = new Vector2(
-					col * (_brickSize.X + brickSpacing), 
+					col * (_brickSize.X + brickSpacing),
 					row * (_brickSize.Y + brickSpacing)
 					);
-				brick.BrickDestroyed += OnBrickDestroyed;
-				AddChild(brick);
 			}
 		}
-		
+
 		CenterGrid();
 	}
 
-	private void OnBrickDestroyed(int points)
+	private void OnBrickDestroyed(Brick brick, int points)
 	{
+		_brickPool.Release(brick);
 		EmitSignal(SignalName.BrickDestroyed, points);
 	}
 }
