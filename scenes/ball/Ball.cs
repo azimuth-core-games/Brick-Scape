@@ -1,7 +1,8 @@
 using Godot;
 using System;
+using brickpong2D.scenes.common;
 
-public partial class Ball : CharacterBody2D
+public partial class Ball : CharacterBody2D, IPoolable
 {
 	[Export] public float Speed { get; set; } = 400.0f;
 
@@ -10,10 +11,27 @@ public partial class Ball : CharacterBody2D
 	//Set difficulty (higher angle => harder)
 	[Export] private float _maxBounceAngleDegrees = 60f;
 	private float MaxBounceAngle => Mathf.DegToRad(_maxBounceAngleDegrees);
+	private CollisionShape2D _collisionShape;
 
 	public override void _Ready()
 	{
+		_collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+	}
+
+	public void OnSpawn()
+	{
+		Visible = true;
+		SetPhysicsProcess(true);
 		Velocity = InitialVelocity;
+		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+	}
+
+	public void OnDespawn()
+	{
+		Visible = false;
+		SetPhysicsProcess(false);
+		Velocity = Vector2.Zero;
+		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 	}
 
 	public override void _PhysicsProcess(double delta)

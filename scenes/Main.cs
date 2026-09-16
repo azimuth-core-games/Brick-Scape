@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using brickpong2D.scenes.common;
 
 public partial class Main : Node2D
 {
@@ -8,11 +9,15 @@ public partial class Main : Node2D
 	[Export] private BrickGrid _brickGrid;
 	private int _lives = 3;
 	private int _score = 0;
+	
+	private NodePool<Ball> _ballPool;
 
 	public override void _Ready()
 	{
 		//Check scenes have been set in editor
 		ValidateExports();
+		
+		_ballPool = new NodePool<Ball>(_ballScene, this);
 		
 		//Show grid in first launch
 		_brickGrid.ResetGrid();
@@ -48,8 +53,10 @@ public partial class Main : Node2D
 	}
 	
 
-	private void OnBallLost()
+	private void OnBallLost(Node2D ball)
 	{
+		_ballPool.Despawn((Ball)ball);
+		GD.Print($"Ball pool decreased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 		_lives--; 
 		_hud.UpdateLives(_lives);
 
@@ -59,18 +66,17 @@ public partial class Main : Node2D
 		}
 		else 
 		{
-			// Spawning new ball touches when ball is still in Killzone
-			// Defer until processes are done and there's idle time.
-			CallDeferred(nameof(SpawnNewBall));
+			SpawnNewBall();
 		}
 		
 	}
 	
 	private void SpawnNewBall()
 	{
-		var ball = _ballScene.Instantiate<Ball>();
+		var ball = _ballPool.Spawn();
 		ball.Position = new Vector2(400, 400);
-		AddChild(ball);
+		
+		GD.Print($"Ball pool increased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 	}
 	
 	private void OnBrickDestroyed(int points)

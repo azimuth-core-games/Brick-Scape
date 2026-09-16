@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using brickpong2D.scenes.common;
 
 public partial class BrickGrid : Node2D
 {
@@ -17,11 +18,15 @@ public partial class BrickGrid : Node2D
 
 	// Padding added to top of grid in viewport
 	private int _paddingTopPixels = 50;
+	
+	private NodePool<Brick> _brickPool;
 
 	public override void _Ready()
 	{
 		//Check PackedScene set in editor
 		ValidateExports();
+		_brickPool = new NodePool<Brick>(_brickScene, this,
+			onCreate: brick => brick.BrickDestroyed += OnBrickDestroyed);
 		GetBrickSize();
 	}
 
@@ -41,7 +46,7 @@ public partial class BrickGrid : Node2D
 
 	public void ResetGrid()
 	{
-		ClearBricks();
+		_brickPool.DespawnAll();
 		GenerateBrickGrid();
 	}
 
@@ -53,39 +58,31 @@ public partial class BrickGrid : Node2D
 		Position = new Vector2((viewPortSize.X - totalGridSize.X)/ 2f, _paddingTopPixels);
 	}
 
-	private void ClearBricks()
-	{
-		foreach (Node child in GetChildren())
-		{
-			if (child is Brick brick)
-			{
-				brick.QueueFree();
-			}
-		}
-	}
-
 	private void GenerateBrickGrid()
 	{
 		for (var row = 0; row < _rows; row++)
 		{
 			for (var col = 0; col < _cols; col++)
 			{
-				var brick = _brickScene.Instantiate<Brick>();
+				var brick = _brickPool.Spawn();
+
+				if (_brickSize == Vector2.Zero)
+					_brickSize = brick.Size;
 				
 				brick.Position = new Vector2(
 					col * (_brickSize.X + _brickSpacing), 
 					row * (_brickSize.Y + _brickSpacing)
 					);
-				brick.BrickDestroyed += OnBrickDestroyed;
-				AddChild(brick);
 			}
 		}
 		
 		CenterGrid();
 	}
 
-	private void OnBrickDestroyed(int points)
+	private void OnBrickDestroyed(Brick brick, int points)
 	{
+		GD.Print($"Bricks created: {_brickPool.TotalCreated}, available: {_brickPool.AvailableCount}");
+		_brickPool.Despawn(brick);
 		EmitSignal(SignalName.BrickDestroyed, points);
 	}
 }
