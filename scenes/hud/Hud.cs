@@ -15,7 +15,19 @@ public partial class Hud : CanvasLayer
 	public override void _Ready()
 	{
 		//Check nodes have been set
-		GD.Print($"\nin Hud -- _startButton: {_startButton}\n _scoreLabel: {_scoreLabel}\n _livesLabel: {_livesLabel}\n _messageLabel: {_messageLabel}");
+		ValidateExports();
+	}
+
+	private void ValidateExports()
+	{
+		if (_startButton == null)
+			throw new SystemException("_startButton is not set in Hud.");
+		if (_scoreLabel == null)
+			throw new SystemException("_scoreLabel is not set in Hud.");
+		if (_livesLabel == null)
+			throw new SystemException("_livesLabel is not set in Hud.");
+		if (_messageLabel == null)
+			throw new SystemException("_messageLabel is not set in Hud.");
 	}
 
 	public void UpdateScore(int score)

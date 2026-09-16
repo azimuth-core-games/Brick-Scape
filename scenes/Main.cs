@@ -11,13 +11,23 @@ public partial class Main : Node2D
 
 	public override void _Ready()
 	{
-		//Check scenes have been set
-		GD.Print($"\nin Main -- _ballScene: {_ballScene}\n _hud: {_hud}\n _brickGrid: {_brickGrid}");
+		//Check scenes have been set in editor
+		ValidateExports();
 		
 		//Show grid in first launch
 		_brickGrid.ResetGrid();
 		_brickGrid.BrickDestroyed += OnBrickDestroyed;
 		_hud.ShowStartGame();
+	}
+
+	private void ValidateExports()
+	{
+		if (_ballScene == null)
+			throw new SystemException("_ballScene is not set in Main.");
+		if (_brickGrid == null)
+			throw new SystemException("_brickGrid is not set in Main.");
+		if (_hud == null)
+			throw new SystemException("_hud is not set in Main.");
 	}
 	
 	private void NewGame()
@@ -49,7 +59,9 @@ public partial class Main : Node2D
 		}
 		else 
 		{
-			SpawnNewBall();
+			// Spawning new ball touches when ball is still in Killzone
+			// Defer until processes are done and there's idle time.
+			CallDeferred(nameof(SpawnNewBall));
 		}
 		
 	}

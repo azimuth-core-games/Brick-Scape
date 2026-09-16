@@ -12,6 +12,7 @@ public partial class BrickGrid : Node2D
 
 	private int _rows = 8;
 	private int _cols = 16;
+	private int _brickSpacing = 4;
 	private Vector2 _brickSize;
 
 	// Padding added to top of grid in viewport
@@ -19,10 +20,23 @@ public partial class BrickGrid : Node2D
 
 	public override void _Ready()
 	{
-		
 		//Check PackedScene set in editor
-		GD.Print($"in BrickGrid -- BrickGridScene: {_brickScene}");
-	
+		ValidateExports();
+		GetBrickSize();
+	}
+
+	private void ValidateExports()
+	{
+		if (_brickScene == null) throw new SystemException($"_brickScene is not set in BrickGrid.");
+	}
+
+	private void GetBrickSize()
+	{
+		// Get size of a temp brick and then delete.
+		var tempBrick = _brickScene.Instantiate<Brick>();
+		AddChild(tempBrick); // needed to get the Brick's Size from _Ready()
+		_brickSize = tempBrick.Size;
+		tempBrick.QueueFree();
 	}
 
 	public void ResetGrid()
@@ -52,12 +66,6 @@ public partial class BrickGrid : Node2D
 
 	private void GenerateBrickGrid()
 	{
-		var brickSpacing = 4f;
-		
-		// Get brick size once
-		var sampleBrick = _brickScene.Instantiate<Brick>();
-		_brickSize = sampleBrick.Size;
-		
 		for (var row = 0; row < _rows; row++)
 		{
 			for (var col = 0; col < _cols; col++)
@@ -65,8 +73,8 @@ public partial class BrickGrid : Node2D
 				var brick = _brickScene.Instantiate<Brick>();
 				
 				brick.Position = new Vector2(
-					col * (_brickSize.X + brickSpacing), 
-					row * (_brickSize.Y + brickSpacing)
+					col * (_brickSize.X + _brickSpacing), 
+					row * (_brickSize.Y + _brickSpacing)
 					);
 				brick.BrickDestroyed += OnBrickDestroyed;
 				AddChild(brick);
