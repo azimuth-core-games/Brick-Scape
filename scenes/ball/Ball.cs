@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Ball : CharacterBody2D
+public partial class Ball : CharacterBody2D, IPoolable
 {
 	[Export] public float Speed { get; set; } = 400.0f;
 
@@ -11,9 +11,11 @@ public partial class Ball : CharacterBody2D
 	[Export] private float _maxBounceAngleDegrees = 60f;
 	private float MaxBounceAngle => Mathf.DegToRad(_maxBounceAngleDegrees);
 
+	private CollisionShape2D _collisionShape;
+
 	public override void _Ready()
 	{
-		Velocity = InitialVelocity;
+		_collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -57,4 +59,19 @@ public partial class Ball : CharacterBody2D
 		Velocity = new Vector2(Speed * Mathf.Sin(bounceAngle), -Speed * Mathf.Cos(bounceAngle));
 	}
 
+	public void OnAcquire()
+	{
+		Visible = true;
+		_collisionShape.Disabled = false;
+		SetPhysicsProcess(true);
+		Velocity = InitialVelocity;
+	}
+
+	public void OnRelease()
+	{
+		Visible = false;
+		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+		SetPhysicsProcess(false);
+		Velocity = Vector2.Zero;
+	}
 }

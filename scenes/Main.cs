@@ -4,34 +4,54 @@ using System;
 public partial class Main : Node2D
 {
 	[Export] private PackedScene _ballScene;
+	[Export] private Hud _hud;
+	[Export] private BrickGrid _brickGrid;
 	private int _lives = 3;
-	
-	// Called when the node enters the scene tree for the first time.
+	private int _score = 0;
+
+	private NodePool<Ball> _ballPool;
+
 	public override void _Ready()
+	{
+		_ballPool = new NodePool<Ball>(_ballScene, this);
+
+		//Check scenes have been set
+		GD.Print($"\nin Main -- _ballScene: {_ballScene}\n _hud: {_hud}\n _brickGrid: {_brickGrid}");
+		
+		//Show grid in first launch
+		_brickGrid.ResetGrid();
+		_brickGrid.BrickDestroyed += OnBrickDestroyed;
+		_hud.ShowStartGame();
+	}
+	
+	private void NewGame()
 	{
 		if (_ballScene == null || !_ballScene.CanInstantiate())
 		{
 			GD.PushError("BallScene has not been instantiated.");
 			return;
 		}
-	
+		
+		_brickGrid.ResetGrid();
+		_lives = 3;
+		_score = 0;
+		_hud.UpdateScore(_score);
+		_hud.UpdateLives(_lives);
+		
 		SpawnNewBall();
 	}
+	
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void OnBallLost(Node2D lostBall)
 	{
-	}
+		_ballPool.Release((Ball)lostBall);
 
-	private void OnBallLost()
-	{
-		GD.Print("OnBallLost Called!");
 		_lives--;
-		GD.Print("lives: ", _lives);
+		_hud.UpdateLives(_lives);
 
 		if (_lives <= 0)
 		{
-			GameOver();
+			_hud.ShowGameOver();
 		}
 		else 
 		{
@@ -39,16 +59,16 @@ public partial class Main : Node2D
 		}
 		
 	}
-
+	
 	private void SpawnNewBall()
 	{
-		var ball = _ballScene.Instantiate<Ball>();
+		var ball = _ballPool.Acquire();
 		ball.Position = new Vector2(400, 400);
-		AddChild(ball);
 	}
-
-	private void GameOver()
+	
+	private void OnBrickDestroyed(int points)
 	{
-		GD.Print("Game Over");
+		_score += points;
+		_hud.UpdateScore(_score);
 	}
 }
