@@ -1,55 +1,90 @@
-using Godot;
 using System;
+using brickpong2D.scenes.common;
+using Godot;
+
+namespace brickpong2D.scenes;
 
 public partial class BrickGrid : Node2D
 {
+	// Pass signal up from each individual brick
+	[Signal]
+	public delegate void BrickDestroyedEventHandler(int points);
+	
 	// allows selection of scene to use for grid (Brick)
-	[Export] public PackedScene BrickGridScene;
+	[Export] private PackedScene _brickScene;
 
-	[Export] public int Rows = 4;
-	[Export] public int Columns = 8;
-
-	// Pixel size of brick png is 64x24 pixels
-	[Export] public Vector2 BrickSize = new Vector2(64, 24);
-	[Export] public Vector2 Spacing = new Vector2(4, 4);
+	private int _rows = 8;
+	private int _cols = 16;
+	private int _brickSpacing = 4;
+	private Vector2 _brickSize;
 
 	// Padding added to top of grid in viewport
-	[Export] public int PaddingTopPixels = 50;
+	private int _paddingTopPixels = 50;
 	
-	
-	// Called when the node enters the scene tree for the first time.
+	private NodePool<brickpong2D.scenes.brick.Brick> _brickPool;
+
 	public override void _Ready()
 	{
-		// Width of bricks together with spacing between (cols - 1)
-		var totalWidth = Columns * BrickSize.X + (Columns - 1) * Spacing.X;
-		var viewportWidth = GetViewportRect().Size.X;
-		// Height of bricks together with spacing between (rows - 1)
-		var totalHeight = Rows * BrickSize.Y + (Rows - 1) * Spacing.Y;
-		var viewportHeight = GetViewportRect().Size.Y;
-		
-		// Find where to start bricks x-position in middle of viewport.
-		var startX = (viewportWidth - totalWidth) / 2f;
-
-		if (totalHeight > viewportHeight || totalWidth > viewportWidth)
-		{
-			GD.PrintErr("Too many rows and/or columns were provided.");
-		}
-		
-		for (var row = 0; row < Rows; row++)
-		{
-			for (var col = 0; col < Columns; col++)
-			{
-				var brick = (Node2D)BrickGridScene.Instantiate();
-				brick.Position = new Vector2(
-					startX + col * (BrickSize.X + Spacing.X), 
-					PaddingTopPixels + row * (BrickSize.Y + Spacing.Y));
-				AddChild(brick);
-			}
-		}
+		//Check PackedScene set in editor
+		ValidateExports();
+		_brickPool = new NodePool<brickpong2D.scenes.brick.Brick>(_brickScene, this,
+			onCreate: brick => brick.BrickDestroyed += OnBrickDestroyed);
+		GetBrickSize();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void ValidateExports()
 	{
+		if (_brickScene == null) throw new SystemException($"_brickScene is not set in BrickGrid.");
+	}
+
+	private void GetBrickSize()
+	{
+		// Get size of a temp brick and then delete.
+		var tempBrick = _brickScene.Instantiate<brickpong2D.scenes.brick.Brick>();
+		AddChild(tempBrick); // needed to get the Brick's Size from _Ready()
+		_brickSize = tempBrick.Size;
+		tempBrick.QueueFree();
+	}
+
+	public void ResetGrid()
+	{
+		_brickPool.ReleaseAll();
+		GenerateBrickGrid();
+	}
+
+	private void CenterGrid()
+	{
+		var totalGridSize = new Vector2(_cols * _brickSize.X, _rows * _brickSize.Y);
+		var viewPortSize = GetViewportRect().Size;
+		
+		Position = new Vector2((viewPortSize.X - totalGridSize.X)/ 2f, _paddingTopPixels);
+	}
+
+	private void GenerateBrickGrid()
+	{
+		for (var row = 0; row < _rows; row++)
+		{
+			for (var col = 0; col < _cols; col++)
+			{
+				var brick = _brickPool.Acquire();
+
+				if (_brickSize == Vector2.Zero)
+					_brickSize = brick.Size;
+				
+				brick.Position = new Vector2(
+					col * (_brickSize.X + _brickSpacing), 
+					row * (_brickSize.Y + _brickSpacing)
+				);
+			}
+		}
+		
+		CenterGrid();
+	}
+
+	private void OnBrickDestroyed(brickpong2D.scenes.brick.Brick brick, int points)
+	{
+		GD.Print($"Bricks created: {_brickPool.TotalCreated}, available: {_brickPool.AvailableCount}");
+		_brickPool.Release(brick);
+		EmitSignal(SignalName.BrickDestroyed, points);
 	}
 }

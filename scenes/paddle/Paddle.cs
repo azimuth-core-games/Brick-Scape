@@ -8,7 +8,7 @@ public partial class Paddle : CharacterBody2D
 	public float Speed = 400.0f;
 
 	public float Width { get; private set; }
-
+	
     public override void _Ready()
     {
         var shape = (RectangleShape2D)GetNode<CollisionShape2D>("CollisionShape2D").Shape;

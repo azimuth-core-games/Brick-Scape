@@ -1,37 +1,70 @@
-using Godot;
 using System;
+using brickpong2D.scenes.common;
+using Godot;
+
+namespace brickpong2D.scenes;
 
 public partial class Main : Node2D
 {
 	[Export] private PackedScene _ballScene;
+	[Export] private Hud _hud;
+	[Export] private BrickGrid _brickGrid;
 	private int _lives = 3;
+	private int _score = 0;
 	
-	// Called when the node enters the scene tree for the first time.
+	private NodePool<brickpong2D.scenes.ball.Ball> _ballPool;
+
 	public override void _Ready()
+	{
+		//Check scenes have been set in editor
+		ValidateExports();
+		
+		_ballPool = new NodePool<brickpong2D.scenes.ball.Ball>(_ballScene, this);
+		
+		//Show grid in first launch
+		_brickGrid.ResetGrid();
+		_brickGrid.BrickDestroyed += OnBrickDestroyed;
+		_hud.ShowStartGame();
+	}
+
+	private void ValidateExports()
+	{
+		if (_ballScene == null)
+			throw new SystemException("_ballScene is not set in Main.");
+		if (_brickGrid == null)
+			throw new SystemException("_brickGrid is not set in Main.");
+		if (_hud == null)
+			throw new SystemException("_hud is not set in Main.");
+	}
+	
+	private void NewGame()
 	{
 		if (_ballScene == null || !_ballScene.CanInstantiate())
 		{
 			GD.PushError("BallScene has not been instantiated.");
 			return;
 		}
-	
+		
+		_brickGrid.ResetGrid();
+		_lives = 3;
+		_score = 0;
+		_hud.UpdateScore(_score);
+		_hud.UpdateLives(_lives);
+		
 		SpawnNewBall();
 	}
+	
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void OnBallLost(Node2D ball)
 	{
-	}
-
-	private void OnBallLost()
-	{
-		GD.Print("OnBallLost Called!");
-		_lives--;
-		GD.Print("lives: ", _lives);
+		_ballPool.Release((brickpong2D.scenes.ball.Ball)ball);
+		GD.Print($"Ball pool decreased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
+		_lives--; 
+		_hud.UpdateLives(_lives);
 
 		if (_lives <= 0)
 		{
-			GameOver();
+			_hud.ShowGameOver();
 		}
 		else 
 		{
@@ -39,16 +72,18 @@ public partial class Main : Node2D
 		}
 		
 	}
-
+	
 	private void SpawnNewBall()
 	{
-		var ball = _ballScene.Instantiate<Ball>();
+		var ball = _ballPool.Acquire();
 		ball.Position = new Vector2(400, 400);
-		AddChild(ball);
+		
+		GD.Print($"Ball pool increased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 	}
-
-	private void GameOver()
+	
+	private void OnBrickDestroyed(int points)
 	{
-		GD.Print("Game Over");
+		_score += points;
+		_hud.UpdateScore(_score);
 	}
 }

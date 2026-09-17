@@ -1,20 +1,41 @@
+using brickpong2D.scenes.common;
 using Godot;
-using System;
 
-public partial class Brick : StaticBody2D
+namespace brickpong2D.scenes.brick;
+
+public partial class Brick : StaticBody2D, IPoolable
 {
-	// Called when the node enters the scene tree for the first time.
+	[Signal]
+	public delegate void BrickDestroyedEventHandler(Brick brick, int points);
+	
+	[Export] public int PointValue { get; private set; } = 10;
+	private CollisionShape2D _collisionShape;
+
 	public override void _Ready()
 	{
+		_collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void OnAcquire()
 	{
+		Visible = true;
+		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
 	}
+
+	public void OnRelease()
+	{
+		Visible = false;
+		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+	}
+	
+	public Vector2 Size =>
+		_collisionShape.Shape is RectangleShape2D rect 
+			? rect.Size * this.Scale
+			: Vector2.Zero;
+
 
 	public void Hit()
 	{
-		QueueFree();
+		EmitSignal(SignalName.BrickDestroyed, this, PointValue);
 	}
 }
