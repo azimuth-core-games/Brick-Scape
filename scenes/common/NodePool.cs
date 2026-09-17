@@ -4,31 +4,16 @@ using Godot;
 
 namespace brickpong2D.scenes.common;
 
-public interface IPoolable
+public partial class NodePool<T>(PackedScene scene, Node parent, Action<T> onCreate = null)
+	where T : Node, IPoolable
 {
-	void OnSpawn();
-	void OnDespawn();
-}
-
-public partial class NodePool<T> where T : Node, IPoolable
-{
-	private readonly PackedScene _scene;
-	private readonly Node _parent;
-	private readonly Action<T> _onCreate;
 	private readonly Stack<T> _available = new();
-	private readonly List<T> _all = new();
+	private readonly List<T> _all = [];
 
 	public int TotalCreated => _all.Count;
 	public int AvailableCount => _available.Count;
 
-	public NodePool(PackedScene scene, Node parent, Action<T> onCreate = null)
-	{
-		_scene = scene;
-		_parent = parent;
-		_onCreate = onCreate;
-	}
-
-	public T Spawn()
+	public T Acquire()
 	{
 		T instance;
 		if (_available.Count > 0)
@@ -37,28 +22,28 @@ public partial class NodePool<T> where T : Node, IPoolable
 		}
 		else
 		{
-			instance = _scene.Instantiate<T>();	//if none exists, create new
-			_parent.AddChild(instance);
+			instance = scene.Instantiate<T>();	//if none exists, create new
+			parent.AddChild(instance);
 			_all.Add(instance);
-			_onCreate?.Invoke(instance);
+			onCreate?.Invoke(instance);
 		}
 		
-		instance.OnSpawn();
+		instance.OnAcquire();
 		return instance;
 	}
 
-	public void Despawn(T instance)
+	public void Release(T instance)
 	{
-		instance.OnDespawn();
+		instance.OnRelease();
 		_available.Push(instance);
 	}
 
-	public void DespawnAll()
+	public void ReleaseAll()
 	{
 		_available.Clear();
 		foreach (var instance in _all)
 		{
-			instance.OnDespawn();
+			instance.OnRelease();
 			_available.Push(instance);
 		}
 	}

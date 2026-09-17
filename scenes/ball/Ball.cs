@@ -1,6 +1,7 @@
-using Godot;
-using System;
 using brickpong2D.scenes.common;
+using Godot;
+
+namespace brickpong2D.scenes.ball;
 
 public partial class Ball : CharacterBody2D, IPoolable
 {
@@ -18,7 +19,7 @@ public partial class Ball : CharacterBody2D, IPoolable
 		_collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 	}
 
-	public void OnSpawn()
+	public void OnAcquire()
 	{
 		Visible = true;
 		SetPhysicsProcess(true);
@@ -26,7 +27,7 @@ public partial class Ball : CharacterBody2D, IPoolable
 		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
 	}
 
-	public void OnDespawn()
+	public void OnRelease()
 	{
 		Visible = false;
 		SetPhysicsProcess(false);
@@ -45,7 +46,7 @@ public partial class Ball : CharacterBody2D, IPoolable
 			case Paddle paddle:
 				HandlePaddleCollision(paddle, collision);
 				break;
-			case Brick brick:
+			case brickpong2D.scenes.brick.Brick brick:
 				brick.Hit();
 				Velocity = Velocity.Bounce(collision.GetNormal());
 				break;

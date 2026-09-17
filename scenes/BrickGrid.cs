@@ -1,6 +1,8 @@
-using Godot;
 using System;
 using brickpong2D.scenes.common;
+using Godot;
+
+namespace brickpong2D.scenes;
 
 public partial class BrickGrid : Node2D
 {
@@ -19,13 +21,13 @@ public partial class BrickGrid : Node2D
 	// Padding added to top of grid in viewport
 	private int _paddingTopPixels = 50;
 	
-	private NodePool<Brick> _brickPool;
+	private NodePool<brickpong2D.scenes.brick.Brick> _brickPool;
 
 	public override void _Ready()
 	{
 		//Check PackedScene set in editor
 		ValidateExports();
-		_brickPool = new NodePool<Brick>(_brickScene, this,
+		_brickPool = new NodePool<brickpong2D.scenes.brick.Brick>(_brickScene, this,
 			onCreate: brick => brick.BrickDestroyed += OnBrickDestroyed);
 		GetBrickSize();
 	}
@@ -38,7 +40,7 @@ public partial class BrickGrid : Node2D
 	private void GetBrickSize()
 	{
 		// Get size of a temp brick and then delete.
-		var tempBrick = _brickScene.Instantiate<Brick>();
+		var tempBrick = _brickScene.Instantiate<brickpong2D.scenes.brick.Brick>();
 		AddChild(tempBrick); // needed to get the Brick's Size from _Ready()
 		_brickSize = tempBrick.Size;
 		tempBrick.QueueFree();
@@ -46,7 +48,7 @@ public partial class BrickGrid : Node2D
 
 	public void ResetGrid()
 	{
-		_brickPool.DespawnAll();
+		_brickPool.ReleaseAll();
 		GenerateBrickGrid();
 	}
 
@@ -64,7 +66,7 @@ public partial class BrickGrid : Node2D
 		{
 			for (var col = 0; col < _cols; col++)
 			{
-				var brick = _brickPool.Spawn();
+				var brick = _brickPool.Acquire();
 
 				if (_brickSize == Vector2.Zero)
 					_brickSize = brick.Size;
@@ -72,17 +74,17 @@ public partial class BrickGrid : Node2D
 				brick.Position = new Vector2(
 					col * (_brickSize.X + _brickSpacing), 
 					row * (_brickSize.Y + _brickSpacing)
-					);
+				);
 			}
 		}
 		
 		CenterGrid();
 	}
 
-	private void OnBrickDestroyed(Brick brick, int points)
+	private void OnBrickDestroyed(brickpong2D.scenes.brick.Brick brick, int points)
 	{
 		GD.Print($"Bricks created: {_brickPool.TotalCreated}, available: {_brickPool.AvailableCount}");
-		_brickPool.Despawn(brick);
+		_brickPool.Release(brick);
 		EmitSignal(SignalName.BrickDestroyed, points);
 	}
 }

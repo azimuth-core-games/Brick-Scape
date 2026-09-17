@@ -1,6 +1,8 @@
-using Godot;
 using System;
 using brickpong2D.scenes.common;
+using Godot;
+
+namespace brickpong2D.scenes;
 
 public partial class Main : Node2D
 {
@@ -10,14 +12,14 @@ public partial class Main : Node2D
 	private int _lives = 3;
 	private int _score = 0;
 	
-	private NodePool<Ball> _ballPool;
+	private NodePool<brickpong2D.scenes.ball.Ball> _ballPool;
 
 	public override void _Ready()
 	{
 		//Check scenes have been set in editor
 		ValidateExports();
 		
-		_ballPool = new NodePool<Ball>(_ballScene, this);
+		_ballPool = new NodePool<brickpong2D.scenes.ball.Ball>(_ballScene, this);
 		
 		//Show grid in first launch
 		_brickGrid.ResetGrid();
@@ -55,7 +57,7 @@ public partial class Main : Node2D
 
 	private void OnBallLost(Node2D ball)
 	{
-		_ballPool.Despawn((Ball)ball);
+		_ballPool.Release((brickpong2D.scenes.ball.Ball)ball);
 		GD.Print($"Ball pool decreased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 		_lives--; 
 		_hud.UpdateLives(_lives);
@@ -73,7 +75,7 @@ public partial class Main : Node2D
 	
 	private void SpawnNewBall()
 	{
-		var ball = _ballPool.Spawn();
+		var ball = _ballPool.Acquire();
 		ball.Position = new Vector2(400, 400);
 		
 		GD.Print($"Ball pool increased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
