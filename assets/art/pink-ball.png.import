@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy3bmf704smgh"
-path="res://.godot/imported/space-bkg.png-8847b33dc981d8304209fa91e39b8902.ctex"
+uid="uid://ckwlca3fuyep1"
+path="res://.godot/imported/pink-ball.png-7b038f5c2c671e296c3539750e423621.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/space-bkg.png"
-dest_files=["res://.godot/imported/space-bkg.png-8847b33dc981d8304209fa91e39b8902.ctex"]
+source_file="res://assets/art/pink-ball.png"
+dest_files=["res://.godot/imported/pink-ball.png-7b038f5c2c671e296c3539750e423621.ctex"]
 
 [params]
 

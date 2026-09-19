@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://br7wuc8rna3dc"]
 
 [ext_resource type="Script" uid="uid://31arfkx6t6af" path="res://scenes/ball/Ball.cs" id="1_cxlvu"]
-[ext_resource type="Texture2D" uid="uid://ckwlca3fuyep1" path="res://assets/pink-ball.png" id="2_nv6q1"]
+[ext_resource type="Texture2D" uid="uid://ckwlca3fuyep1" path="res://assets/art/pink-ball.png" id="2_nv6q1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n1dj2"]
 radius = 13.0
