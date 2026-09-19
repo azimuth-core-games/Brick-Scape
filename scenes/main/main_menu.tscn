@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://b82mybodueg87"]
+
+[ext_resource type="Texture2D" uid="uid://dy3bmf704smgh" path="res://assets/art/space-bkg.png" id="1_5vafy"]
+[ext_resource type="FontFile" uid="uid://bgt3sflcngb7t" path="res://assets/fonts/Minecraft.ttf" id="2_byqcc"]
+
+[node name="MainMenu" type="Control" unique_id=1470066581]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="." unique_id=1579557941]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5vafy")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=452734124]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -444.0
+offset_top = -76.0
+offset_right = 444.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=1972993087]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84963626, 0.70250493, 0.88960075, 1)
+theme_override_fonts/font = ExtResource("2_byqcc")
+theme_override_font_sizes/font_size = 128
+text = "BRICK SCAPE"
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=248710946]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_byqcc")
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=829151050]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_byqcc")
+theme_override_font_sizes/font_size = 64
+text = "Quit"
