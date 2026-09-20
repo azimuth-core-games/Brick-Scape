@@ -1,5 +1,6 @@
 using System;
-using brickpong2D.scenes.common;
+using brickpong2D.autoload;
+using brickpong2D.common;
 using Godot;
 
 namespace brickpong2D.scenes;
@@ -9,17 +10,27 @@ public partial class Main : Node2D
 	[Export] private PackedScene _ballScene;
 	[Export] private Hud _hud;
 	[Export] private BrickGrid _brickGrid;
-	private int _lives = 3;
-	private int _score = 0;
+	private GameManager _gameManager;
 	
-	private NodePool<brickpong2D.scenes.ball.Ball> _ballPool;
+	private NodePool<ball.Ball> _ballPool;
 
 	public override void _Ready()
 	{
 		//Check scenes have been set in editor
 		ValidateExports();
 		
-		_ballPool = new NodePool<brickpong2D.scenes.ball.Ball>(_ballScene, this);
+		_ballPool = new NodePool<ball.Ball>(_ballScene, this);
+		_gameManager = GameManager.Instance;
+
+		if (_gameManager == null)
+		{
+			GD.PrintErr("GameManager instance is null.");
+			return;
+		}
+
+		_gameManager.ScoreChanged += OnScoreChanged;
+		_gameManager.LivesChanged += OnLivesChanged;
+		_gameManager.GameOver += OnGameOver;
 		
 		//Show grid in first launch
 		_brickGrid.ResetGrid();
@@ -46,10 +57,7 @@ public partial class Main : Node2D
 		}
 		
 		_brickGrid.ResetGrid();
-		_lives = 3;
-		_score = 0;
-		_hud.UpdateScore(_score);
-		_hud.UpdateLives(_lives);
+		_gameManager.ResetGame();
 		
 		SpawnNewBall();
 	}
@@ -59,18 +67,11 @@ public partial class Main : Node2D
 	{
 		_ballPool.Release((brickpong2D.scenes.ball.Ball)ball);
 		GD.Print($"Ball pool decreased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
-		_lives--; 
-		_hud.UpdateLives(_lives);
-
-		if (_lives <= 0)
-		{
-			_hud.ShowGameOver();
-		}
-		else 
-		{
-			SpawnNewBall();
-		}
 		
+		_gameManager.LoseLife();
+
+		if (_gameManager.Lives > 0)
+			SpawnNewBall();
 	}
 	
 	private void SpawnNewBall()
@@ -83,7 +84,10 @@ public partial class Main : Node2D
 	
 	private void OnBrickDestroyed(int points)
 	{
-		_score += points;
-		_hud.UpdateScore(_score);
+		_gameManager.AddScore(points);
 	}
+	
+	private void OnScoreChanged(int newScore) => _hud.UpdateScore(newScore);
+	private void OnLivesChanged(int newLives) => _hud.UpdateLives(newLives);
+	private void OnGameOver() => _hud.ShowGameOver();
 }

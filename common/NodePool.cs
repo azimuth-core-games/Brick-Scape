@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-namespace brickpong2D.scenes.common;
+namespace brickpong2D.common;
 
 public partial class NodePool<T>(PackedScene scene, Node parent, Action<T> onCreate = null)
 	where T : Node, IPoolable
