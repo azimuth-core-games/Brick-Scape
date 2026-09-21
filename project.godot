@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="brick-pong-2D"
-run/main_scene="uid://c67yfrt80lwcp"
+run/main_scene="uid://dm7o384o81pss"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
+SceneManager="*uid://d2hibo24hlafc"
 GameManager="*uid://c1wpbrfiuwxd3"
 
 [display]
