@@ -4,10 +4,6 @@ using System.Threading.Tasks;
 
 public partial class Hud : CanvasLayer
 {
-	[Signal]
-	public delegate void StartGameEventHandler();
-
-	[Export] private Button _startButton;
 	[Export] private Label _scoreLabel;
 	[Export] private Label _livesLabel;
 	[Export] private Label _messageLabel;
@@ -20,8 +16,6 @@ public partial class Hud : CanvasLayer
 
 	private void ValidateExports()
 	{
-		if (_startButton == null)
-			throw new SystemException("_startButton is not set in Hud.");
 		if (_scoreLabel == null)
 			throw new SystemException("_scoreLabel is not set in Hud.");
 		if (_livesLabel == null)
@@ -40,12 +34,6 @@ public partial class Hud : CanvasLayer
 	{
 		var livesString = "Lives: " + lives.ToString();
 		_livesLabel.Text = livesString;
-	}
-
-	private void OnStartButtonPressed()
-	{
-		_startButton.Hide();
-		EmitSignal(SignalName.StartGame);
 	}
 
 	/// <summary>
@@ -68,21 +56,15 @@ public partial class Hud : CanvasLayer
 		_messageLabel.Hide();
 	}
 
-	public async void ShowGameOver()
+	public async Task ShowGameOver()
 	{
 		try
 		{
 			await ShowTimedMessage("Game Over");
-			ShowStartGame();
 		}
 		catch (Exception e)
 		{
 			GD.PushError($"ShowGameOver Error: {e}");
 		}
-	}
-	
-	public void ShowStartGame()
-	{
-		_startButton.Show();
 	}
 }
