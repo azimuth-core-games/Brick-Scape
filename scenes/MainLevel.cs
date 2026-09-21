@@ -5,7 +5,7 @@ using Godot;
 
 namespace brickpong2D.scenes;
 
-public partial class Main : Node2D
+public partial class MainLevel : Node2D
 {
 	[Export] private PackedScene _ballScene;
 	[Export] private Hud _hud;
@@ -31,11 +31,9 @@ public partial class Main : Node2D
 		_gameManager.ScoreChanged += OnScoreChanged;
 		_gameManager.LivesChanged += OnLivesChanged;
 		_gameManager.GameOver += OnGameOver;
-		
-		//Show grid in first launch
-		_brickGrid.ResetGrid();
 		_brickGrid.BrickDestroyed += OnBrickDestroyed;
-		_hud.ShowStartGame();
+		
+		NewGame();
 	}
 
 	private void ValidateExports()
@@ -89,5 +87,30 @@ public partial class Main : Node2D
 	
 	private void OnScoreChanged(int newScore) => _hud.UpdateScore(newScore);
 	private void OnLivesChanged(int newLives) => _hud.UpdateLives(newLives);
-	private void OnGameOver() => _hud.ShowGameOver();
+
+	private async void OnGameOver()
+	{
+		try
+		{
+			await _hud.ShowGameOver();
+		}
+		catch (Exception e)
+		{
+			GD.PrintErr("Error printing GameOver in MainLevel:", e.ToString());
+		}
+		
+		SceneManager.Instance.GoToMainMenu();
+	}
+
+	// Unsubscribe from signals when game finishes.
+	// Prevents sending signals to previous scene instances.
+	public override void _ExitTree()
+	{
+		if (_gameManager == null)
+			return;
+		
+		_gameManager.ScoreChanged -= OnScoreChanged;
+		_gameManager.LivesChanged -= OnLivesChanged;
+		_gameManager.GameOver -= OnGameOver;
+	}
 }
