@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace brickpong2D.scenes;
 
 public partial class Killzone : Area2D
 {

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://br7wuc8rna3dc" path="res://scenes/ball/ball.tscn" id="2_iqu8w"]
 [ext_resource type="Texture2D" uid="uid://dy3bmf704smgh" path="res://assets/art/space-bkg.png" id="3_5fr2l"]
 [ext_resource type="PackedScene" uid="uid://c55j3kbfxq33r" path="res://scenes/paddle/paddle.tscn" id="4_2sb77"]
-[ext_resource type="Script" uid="uid://bntnl4im4tg6p" path="res://scenes/BrickGrid.cs" id="5_fkrx8"]
+[ext_resource type="Script" uid="uid://bntnl4im4tg6p" path="res://scenes/brick/BrickGrid.cs" id="5_fkrx8"]
 [ext_resource type="PackedScene" uid="uid://dghdnafodte0y" path="res://scenes/brick/brick.tscn" id="6_mwgft"]
 [ext_resource type="Script" uid="uid://nrug1203tmou" path="res://scenes/Killzone.cs" id="7_adxub"]
 [ext_resource type="PackedScene" uid="uid://cyk0g5ja43wax" path="res://scenes/hud/hud.tscn" id="8_ff0s2"]
@@ -19,8 +19,7 @@ b = Vector2(1152, 648)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_svowp"]
 b = Vector2(1152, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0djs"]
-size = Vector2(1152, 0.5)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k5pu3"]
 
 [node name="MainLevel" type="Node2D" unique_id=1486628709 node_paths=PackedStringArray("_hud", "_brickGrid")]
 script = ExtResource("1_k5pu3")
@@ -73,7 +72,7 @@ script = ExtResource("7_adxub")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=603981041]
 position = Vector2(577, 645.75)
-shape = SubResource("RectangleShape2D_e0djs")
+shape = SubResource("WorldBoundaryShape2D_k5pu3")
 
 [node name="HUD" parent="." unique_id=2037814647 instance=ExtResource("8_ff0s2")]
 
