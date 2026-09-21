@@ -17,6 +17,12 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
+        if (Instance != null && Instance != this)
+        {
+            GD.PushWarning("Duplicate Game Manager instance! - Freeing new one.");
+            QueueFree();
+            return;
+        }
         Instance = this;
     }
 
@@ -41,5 +47,11 @@ public partial class GameManager : Node
         
         if (this.Lives <= 0)
             EmitSignal(SignalName.GameOver);
+    }
+
+    public override void _ExitTree()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 }
