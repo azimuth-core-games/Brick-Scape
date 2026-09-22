@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0o547d8my43m" path="res://autoload/SceneManager.cs" id="1_tsl6u"]
 [ext_resource type="PackedScene" uid="uid://dm7o384o81pss" path="res://scenes/main_menu/main_menu.tscn" id="2_n4a6k"]
-[ext_resource type="PackedScene" uid="uid://c67yfrt80lwcp" path="res://scenes/main_level.tscn" id="3_ln8fm"]
+[ext_resource type="PackedScene" uid="uid://c67yfrt80lwcp" path="res://scenes/levels/main_level.tscn" id="3_ln8fm"]
 
 [node name="SceneManager" type="Node" unique_id=168330404]
 script = ExtResource("1_tsl6u")
