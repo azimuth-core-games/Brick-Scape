@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7gkhqx0osxik"
-path="res://.godot/imported/pink-brick.png-11dfa9c7c6336294095a79128d3787b8.ctex"
+uid="uid://dy3bmf704smgh"
+path="res://.godot/imported/space-bkg.png-ed8c5a746475d991db7705a8621331d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pink-brick.png"
-dest_files=["res://.godot/imported/pink-brick.png-11dfa9c7c6336294095a79128d3787b8.ctex"]
+source_file="res://assets/art/space-bkg.png"
+dest_files=["res://.godot/imported/space-bkg.png-ed8c5a746475d991db7705a8621331d2.ctex"]
 
 [params]
 
