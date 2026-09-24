@@ -24,8 +24,7 @@ public partial class MainLevel : Node2D
 
 		if (_gameManager == null)
 		{
-			GD.PrintErr("GameManager instance is null.");
-			return;
+			throw new SystemException("GameManager is null in MainLevel. Check that it is registered in autoloads.");
 		}
 
 		_gameManager.ScoreChanged += OnScoreChanged;
