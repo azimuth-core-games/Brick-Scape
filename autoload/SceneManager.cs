@@ -15,7 +15,7 @@ public partial class SceneManager : Node
     public override void _Ready()
     {
         Instance = this;
-        ValidateExports()
+        ValidateExports();
     }
 
     private void ValidateExports()

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c67yfrt80lwcp"]
 
-[ext_resource type="Script" uid="uid://duv1cxa753rkm" path="res://scenes/levels/MainLevel.cs" id="1_8lk3y"]
+[ext_resource type="Script" uid="uid://duv1cxa753rkm" path="res://scenes/levels/MainLevel.cs" id="1_h35hl"]
 [ext_resource type="PackedScene" uid="uid://br7wuc8rna3dc" path="res://scenes/ball/ball.tscn" id="2_h35hl"]
 [ext_resource type="Texture2D" uid="uid://dy3bmf704smgh" path="res://assets/art/space-bkg.png" id="3_kwk8y"]
 [ext_resource type="PackedScene" uid="uid://c55j3kbfxq33r" path="res://scenes/paddle/paddle.tscn" id="4_c7w6w"]
@@ -18,11 +18,12 @@ b = Vector2(1152, 648)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_svowp"]
 b = Vector2(1152, 0)
 
-[node name="MainLevel" type="Node2D" unique_id=1486628709 node_paths=PackedStringArray("_hud", "_brickGrid")]
-script = ExtResource("1_8lk3y")
+[node name="MainLevel" type="Node2D" unique_id=1486628709 node_paths=PackedStringArray("_hud", "_brickGrid", "_killZone")]
+script = ExtResource("1_h35hl")
 _ballScene = ExtResource("2_h35hl")
 _hud = NodePath("HUD")
 _brickGrid = NodePath("BrickGrid")
+_killZone = NodePath("Killzone")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=239418751]
 layer = -1
@@ -65,5 +66,3 @@ shape = SubResource("SegmentShape2D_svowp")
 [node name="Killzone" parent="." unique_id=322296096 instance=ExtResource("6_63vgv")]
 
 [node name="HUD" parent="." unique_id=2037814647 instance=ExtResource("7_g2oho")]
-
-[connection signal="body_entered" from="Killzone" to="." method="OnBallLost"]

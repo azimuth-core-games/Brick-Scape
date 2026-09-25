@@ -10,6 +10,7 @@ public partial class MainLevel : Node2D
 	[Export] private PackedScene _ballScene;
 	[Export] private Hud _hud;
 	[Export] private BrickGrid _brickGrid;
+	[Export] private Killzone _killZone;
 	private GameManager _gameManager;
 	
 	private NodePool<ball.Ball> _ballPool;
@@ -22,15 +23,12 @@ public partial class MainLevel : Node2D
 		_ballPool = new NodePool<ball.Ball>(_ballScene, this);
 		_gameManager = GameManager.Instance;
 
-		if (_gameManager == null)
-		{
-			throw new SystemException("GameManager is null in MainLevel. Check that it is registered in autoloads.");
-		}
-
+		_killZone.BallLost += OnBallLost;
 		_gameManager.ScoreChanged += OnScoreChanged;
 		_gameManager.LivesChanged += OnLivesChanged;
 		_gameManager.GameOver += OnGameOver;
 		_brickGrid.BrickDestroyed += OnBrickDestroyed;
+		
 		
 		NewGame();
 	}
@@ -61,7 +59,7 @@ public partial class MainLevel : Node2D
 
 	private void OnBallLost(Node2D ball)
 	{
-		_ballPool.Release((brickpong2D.scenes.ball.Ball)ball);
+		_ballPool.Release((ball.Ball)ball);
 		GD.Print($"Ball pool decreased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 		
 		_gameManager.LoseLife();
