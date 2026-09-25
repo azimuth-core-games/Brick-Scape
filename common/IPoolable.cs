@@ -1,5 +1,4 @@
-namespace brickpong2D.scenes.common;
-
+namespace brickpong2D.common;
 public interface IPoolable
 {
     void OnAcquire();
