@@ -47,10 +47,9 @@ public partial class MainLevel : Node2D
 	
 	private void NewGame()
 	{
-		if (_ballScene == null || !_ballScene.CanInstantiate())
+		if (!_ballScene.CanInstantiate())
 		{
-			GD.PushError("BallScene has not been instantiated.");
-			return;
+			throw new SystemException("BallScene can not be instantiated.");
 		}
 		
 		_brickGrid.ResetGrid();
