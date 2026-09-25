@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace brickpong2D.scenes;
 
 public partial class Killzone : Area2D
 {
@@ -8,7 +9,6 @@ public partial class Killzone : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		
 		if (!body.IsInGroup("ball")) return;
 		
 		EmitSignal(SignalName.BallLost, body);

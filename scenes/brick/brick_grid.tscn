@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://7fkw5hy0met2"]
+
+[ext_resource type="Script" uid="uid://bntnl4im4tg6p" path="res://scenes/brick/BrickGrid.cs" id="1_buru8"]
+[ext_resource type="PackedScene" uid="uid://dghdnafodte0y" path="res://scenes/brick/brick.tscn" id="2_piosr"]
+
+[node name="BrickGrid" type="Node2D" unique_id=115992363]
+script = ExtResource("1_buru8")
+_brickScene = ExtResource("2_piosr")

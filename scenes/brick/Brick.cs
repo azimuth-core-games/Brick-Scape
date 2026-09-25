@@ -1,4 +1,5 @@
-using brickpong2D.scenes.common;
+
+using brickpong2D.common;
 using Godot;
 
 namespace brickpong2D.scenes.brick;
