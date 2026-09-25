@@ -17,12 +17,6 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
-        if (Instance != null && Instance != this)
-        {
-            GD.PushWarning("Duplicate Game Manager instance! - Freeing new one.");
-            QueueFree();
-            return;
-        }
         Instance = this;
     }
 
