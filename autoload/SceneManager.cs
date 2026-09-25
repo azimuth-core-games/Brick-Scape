@@ -15,6 +15,7 @@ public partial class SceneManager : Node
     public override void _Ready()
     {
         Instance = this;
+        ValidateExports()
     }
 
     private void ValidateExports()
@@ -27,22 +28,18 @@ public partial class SceneManager : Node
 
     public void GoToMainMenu()
     {
-        if (_mainMenuScene == null)
-        {
-            GD.PrintErr("Main menu scene is not set in SceneManager.");
-            return;
-        }
         GetTree().ChangeSceneToPacked(_mainMenuScene);
     }
 
     public void GoToLevel1()
     {
-        if (_level1Scene == null)
-        {
-            GD.PrintErr("Level 1 scene is not set in SceneManager.");
-            return;
-        }
         GetTree().ChangeSceneToPacked(_level1Scene);
+    }
+
+    public override void _ExitTree()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
 }
