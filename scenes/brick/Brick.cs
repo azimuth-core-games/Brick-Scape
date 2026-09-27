@@ -1,4 +1,5 @@
 
+using brickpong2D.autoload;
 using brickpong2D.common;
 using Godot;
 
@@ -37,6 +38,7 @@ public partial class Brick : StaticBody2D, IPoolable
 
 	public void Hit()
 	{
+		SoundManager.Instance.PlaySfx(Sfx.BrickBreak, this.GlobalPosition);
 		EmitSignal(SignalName.BrickDestroyed, this, PointValue);
 	}
 }

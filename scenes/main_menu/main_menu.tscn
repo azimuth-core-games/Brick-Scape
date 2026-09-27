@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dy3bmf704smgh" path="res://assets/art/space-bkg.png" id="1_0ebjn"]
 [ext_resource type="Script" uid="uid://jpwkskbc3218" path="res://scenes/main_menu/MainMenu.cs" id="1_ob46e"]
 [ext_resource type="FontFile" uid="uid://bgt3sflcngb7t" path="res://assets/fonts/Minecraft.ttf" id="2_ob46e"]
+[ext_resource type="AudioStream" uid="uid://b0l3wlt41m2cv" path="res://assets/audio/retro_synthwave_arcade_music.ogg" id="2_uqeha"]
 
 [node name="MainMenu" type="Control" unique_id=371559359 node_paths=PackedStringArray("_startButton", "_quitButton")]
 layout_mode = 3
@@ -14,6 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_ob46e")
 _startButton = NodePath("VBoxContainer/StartButton")
 _quitButton = NodePath("VBoxContainer/QuitButton")
+_audioStream = ExtResource("2_uqeha")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1834756256]
 layout_mode = 1

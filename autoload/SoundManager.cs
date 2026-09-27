@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Godot;
 
 namespace brickpong2D.autoload;
+
+public enum Sfx { BrickBreak, WallBounce, PaddleBounce, ButtonClick, ButtonHover }
 
 public partial class SoundManager : Node
 {
@@ -10,22 +13,66 @@ public partial class SoundManager : Node
 
     private int _sfxPlayerCount = 8;
     private AudioStreamPlayer _musicPlayer;
-    private readonly Queue<AudioStreamPlayer> _sfxPlayers = new();
+    private AudioStreamPlayer _uiPlayer;
+    private readonly Queue<AudioStreamPlayer2D> _sfxPlayers = new();
+
+    // Sound effects
+    [Export] private AudioStream _brickBreak;
+    [Export] private AudioStream _wallBounce;
+    [Export] private AudioStream _paddleBounce;
+    [Export] private AudioStream _buttonClick;
+    [Export] private AudioStream _buttonHover;
+    
+    // Sound effect library
+    private Dictionary<Sfx, AudioStream> _sfxLibrary;
 
     public override void _Ready()
     {
         Instance = this;
+        ValidateExports();
 
         _musicPlayer = new AudioStreamPlayer { Bus = "Music" };
         AddChild(_musicPlayer);
+        
+        _uiPlayer = new AudioStreamPlayer { Bus = "UI" };
+        AddChild(_uiPlayer);
 
         // add multiple players for SFX 
         for (int i = 0; i < _sfxPlayerCount; i++)
         {
-            var player = new AudioStreamPlayer { Bus = "SFX" };
+            var player = new AudioStreamPlayer2D { Bus = "SFX" };
             AddChild(player);
             _sfxPlayers.Enqueue(player);
         }
+
+        _sfxLibrary = new()
+        {
+            { Sfx.BrickBreak, _brickBreak },
+            { Sfx.WallBounce, _wallBounce },
+            { Sfx.PaddleBounce, _paddleBounce },
+            { Sfx.ButtonClick, _buttonClick },
+            { Sfx.ButtonHover, _buttonHover },
+        };
+    }
+
+    private void ValidateExports()
+    {
+        if (_brickBreak == null)
+            throw new SystemException("_brickBreak is not set in SoundManager.");
+        if (_wallBounce == null)
+            throw new SystemException("_wallBounce is not set in SoundManager.");
+        if (_paddleBounce == null)
+            throw new SystemException("_paddleBounce is not set in SoundManager.");
+        if (_buttonClick == null)
+            throw new SystemException("_buttonClick is not set in SoundManager.");
+        if (_buttonHover == null)
+            throw new SystemException("_buttonHover is not set in SoundManager.");
+    }
+
+    public void PlayUISfx(Sfx sfx)
+    {
+        _uiPlayer.Stream = _sfxLibrary[sfx];
+        _uiPlayer.Play();
     }
 
     public void PlayMusic(AudioStream stream, bool loop = true)
@@ -35,7 +82,7 @@ public partial class SoundManager : Node
 
         switch (stream)
         {
-            // set audio to loop for ogg and wav (looping mp3 not supported)
+            // set audio to loop
             case AudioStreamOggVorbis ogg:
                 ogg.Loop = loop;
                 break;
@@ -44,6 +91,9 @@ public partial class SoundManager : Node
                 wav.LoopMode = loop
                     ? AudioStreamWav.LoopModeEnum.Forward
                     : AudioStreamWav.LoopModeEnum.Disabled;
+                break;
+            case AudioStreamMP3 mp3:
+                mp3.Loop = loop;
                 break;
         }
 
@@ -54,11 +104,16 @@ public partial class SoundManager : Node
     public void StopMusic() => _musicPlayer.Stop();
     
     // volume in decibels
-    public void PlaySfx(AudioStream stream, float volumeDb = 0f)
+    public void PlaySfx(Sfx sfx, Vector2? position = null)
     {
+        GD.Print($"SOUNDMANAGER --- Now playing sfx {sfx} at {position}.");
         var player = _sfxPlayers.Dequeue();
-        player.Stream = stream;
-        player.VolumeDb = volumeDb;
+        player.Stream = _sfxLibrary[sfx];
+        if (position != null)
+        {
+            player.Position = position.Value;
+        }
+
         player.Play();
         
         _sfxPlayers.Enqueue(player);

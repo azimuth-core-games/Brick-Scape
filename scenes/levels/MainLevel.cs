@@ -41,6 +41,8 @@ public partial class MainLevel : Node2D
 			throw new SystemException("_brickGrid is not set in Main.");
 		if (_hud == null)
 			throw new SystemException("_hud is not set in Main.");
+		if (_killZone == null)
+			throw new SystemException("_killZone is not set in Main.");
 	}
 	
 	private void NewGame()
@@ -60,10 +62,8 @@ public partial class MainLevel : Node2D
 	private void OnBallLost(Node2D ball)
 	{
 		_ballPool.Release((ball.Ball)ball);
-		GD.Print($"Ball pool decreased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 		
 		_gameManager.LoseLife();
-
 		if (_gameManager.Lives > 0)
 			SpawnNewBall();
 	}
@@ -72,8 +72,6 @@ public partial class MainLevel : Node2D
 	{
 		var ball = _ballPool.Acquire();
 		ball.Position = new Vector2(400, 400);
-		
-		GD.Print($"Ball pool increased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 	}
 	
 	private void OnBrickDestroyed(int points)
