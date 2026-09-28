@@ -5,7 +5,7 @@ using Godot;
 
 namespace brickpong2D.autoload;
 
-public enum Sfx { BrickBreak, WallBounce, PaddleBounce, ButtonClick, ButtonHover }
+public enum Sfx { BrickBreak, WallBounce, PaddleBounce, ButtonClick, ButtonHover, GameOver, LifeLost }
 
 public partial class SoundManager : Node
 {
@@ -22,6 +22,8 @@ public partial class SoundManager : Node
     [Export] private AudioStream _paddleBounce;
     [Export] private AudioStream _buttonClick;
     [Export] private AudioStream _buttonHover;
+    [Export] private AudioStream _gameOver;
+    [Export] private AudioStream _lifeLost;
     
     // Sound effect library
     private Dictionary<Sfx, AudioStream> _sfxLibrary;
@@ -52,6 +54,8 @@ public partial class SoundManager : Node
             { Sfx.PaddleBounce, _paddleBounce },
             { Sfx.ButtonClick, _buttonClick },
             { Sfx.ButtonHover, _buttonHover },
+            { Sfx.GameOver, _gameOver },
+            { Sfx.LifeLost, _lifeLost },
         };
     }
 
@@ -106,7 +110,6 @@ public partial class SoundManager : Node
     // volume in decibels
     public void PlaySfx(Sfx sfx, Vector2? position = null)
     {
-        GD.Print($"SOUNDMANAGER --- Now playing sfx {sfx} at {position}.");
         var player = _sfxPlayers.Dequeue();
         player.Stream = _sfxLibrary[sfx];
         if (position != null)

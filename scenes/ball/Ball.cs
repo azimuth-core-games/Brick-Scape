@@ -1,3 +1,4 @@
+using brickpong2D.autoload;
 using brickpong2D.common;
 using Godot;
 
@@ -44,6 +45,7 @@ public partial class Ball : CharacterBody2D, IPoolable
 		switch (collider)
 		{
 			case Paddle paddle:
+				SoundManager.Instance.PlaySfx(Sfx.PaddleBounce);
 				HandlePaddleCollision(paddle, collision);
 				break;
 			case brickpong2D.scenes.brick.Brick brick:
@@ -51,6 +53,7 @@ public partial class Ball : CharacterBody2D, IPoolable
 				Velocity = Velocity.Bounce(collision.GetNormal());
 				break;
 			default:
+				SoundManager.Instance.PlaySfx(Sfx.WallBounce);
 				Velocity = Velocity.Bounce(collision.GetNormal());
 				break;
 		}

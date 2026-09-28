@@ -20,6 +20,8 @@ public partial class MainLevel : Node2D
 		//Check scenes have been set in editor
 		ValidateExports();
 		
+		SoundManager.Instance.StopMusic();
+		
 		_ballPool = new NodePool<ball.Ball>(_ballScene, this);
 		_gameManager = GameManager.Instance;
 
@@ -61,6 +63,7 @@ public partial class MainLevel : Node2D
 
 	private void OnBallLost(Node2D ball)
 	{
+		SoundManager.Instance.PlaySfx(Sfx.LifeLost);
 		_ballPool.Release((ball.Ball)ball);
 		
 		_gameManager.LoseLife();
@@ -86,6 +89,7 @@ public partial class MainLevel : Node2D
 	{
 		try
 		{
+			SoundManager.Instance.PlaySfx(Sfx.GameOver);
 			await _hud.ShowGameOver();
 		}
 		catch (Exception e)

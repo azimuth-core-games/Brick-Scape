@@ -1,15 +1,20 @@
 [gd_scene format=3 uid="uid://mr6vckoovnjp"]
 
 [ext_resource type="Script" uid="uid://imlq2v3x3vga" path="res://autoload/SoundManager.cs" id="1_v161e"]
-[ext_resource type="AudioStream" uid="uid://dh674glbufe7h" path="res://assets/audio/paddle_hit.wav" id="2_rjaah"]
+[ext_resource type="AudioStream" uid="uid://b60lfjtchxyhj" path="res://assets/audio/brick_break_sound.wav" id="2_culwi"]
 [ext_resource type="AudioStream" uid="uid://1v7tohu8a464" path="res://assets/audio/wall_hit.wav" id="3_rx1ey"]
 [ext_resource type="AudioStream" uid="uid://8bo7qbmbi5xv" path="res://assets/audio/universfield-ui-button-click-147358.wav" id="4_culwi"]
+[ext_resource type="AudioStream" uid="uid://d31u7umihl15p" path="res://assets/audio/metal_hit_sound.wav" id="4_r8tf1"]
 [ext_resource type="AudioStream" uid="uid://k2dflcjr3axu" path="res://assets/audio/hover_button_sound.wav" id="5_r8tf1"]
+[ext_resource type="AudioStream" uid="uid://yki3ji2hou1u" path="res://assets/audio/game_over_sound_louder_2.wav" id="7_ekme8"]
+[ext_resource type="AudioStream" uid="uid://dehjgpplc8qhe" path="res://assets/audio/life_lost_sound.wav" id="8_r8tf1"]
 
 [node name="SoundManager" type="Node" unique_id=393682370]
 script = ExtResource("1_v161e")
-_brickBreak = ExtResource("2_rjaah")
+_brickBreak = ExtResource("2_culwi")
 _wallBounce = ExtResource("3_rx1ey")
-_paddleBounce = ExtResource("2_rjaah")
+_paddleBounce = ExtResource("4_r8tf1")
 _buttonClick = ExtResource("4_culwi")
 _buttonHover = ExtResource("5_r8tf1")
+_gameOver = ExtResource("7_ekme8")
+_lifeLost = ExtResource("8_r8tf1")

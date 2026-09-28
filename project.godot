@@ -15,6 +15,10 @@ run/main_scene="uid://dm7o384o81pss"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://c3d7hsk3744a8"
+
 [autoload]
 
 SceneManager="*uid://d2hibo24hlafc"
