@@ -24,6 +24,7 @@ buses/default_bus_layout="uid://c3d7hsk3744a8"
 SceneManager="*uid://d2hibo24hlafc"
 GameManager="*uid://c1wpbrfiuwxd3"
 SoundManager="*uid://mr6vckoovnjp"
+SoundToggle="*uid://b7k3m2xq8snt4"
 
 [display]
 
