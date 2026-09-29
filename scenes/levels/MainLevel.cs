@@ -68,7 +68,11 @@ public partial class MainLevel : Node2D
 		
 		_gameManager.LoseLife();
 		if (_gameManager.Lives > 0)
+		{
+			SoundManager.Instance.PlayUISfx(Sfx.LifeLost);
 			SpawnNewBall();
+		}
+		
 	}
 	
 	private void SpawnNewBall()

@@ -16,6 +16,9 @@ public partial class MainMenu : Node
         
         _startButton.Pressed += OnStartButtonPressed;
         _quitButton.Pressed += OnQuitButtonPressed;
+
+        _startButton.MouseEntered += OnButtonHovered;
+        _quitButton.MouseEntered += OnButtonHovered;
         
         SoundManager.Instance.PlayMusic(_audioStream);
     }
@@ -26,6 +29,11 @@ public partial class MainMenu : Node
             throw new SystemException("_startButton is not set in MainMenu.");
         if (_quitButton == null)
             throw new SystemException("_quitButton is not set in MainMenu.");
+    }
+
+    private void OnButtonHovered()
+    {
+        SoundManager.Instance.PlayUISfx(Sfx.ButtonHover);
     }
 
     private void OnStartButtonPressed()

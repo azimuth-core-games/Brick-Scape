@@ -11,6 +11,13 @@ public partial class SoundManager : Node
 {
     public static SoundManager Instance { get; private set; }
 
+    [Signal]
+    public delegate void MutedChangedEventHandler(bool muted);
+
+    // Master bus is always index 0
+    private const int MasterBusIndex = 0;
+    public bool Muted => AudioServer.IsBusMute(MasterBusIndex);
+
     private int _sfxPlayerCount = 8;
     private AudioStreamPlayer _musicPlayer;
     private AudioStreamPlayer _uiPlayer;
@@ -71,6 +78,10 @@ public partial class SoundManager : Node
             throw new SystemException("_buttonClick is not set in SoundManager.");
         if (_buttonHover == null)
             throw new SystemException("_buttonHover is not set in SoundManager.");
+        if (_gameOver == null)
+            throw new SystemException("_gameOver is not set in SoundManager.");
+        if (_lifeLost == null)
+            throw new SystemException("_lifeLost is not set in SoundManager.");
     }
 
     public void PlayUISfx(Sfx sfx)
@@ -120,5 +131,19 @@ public partial class SoundManager : Node
         player.Play();
         
         _sfxPlayers.Enqueue(player);
+    }
+
+    public void SetMuted(bool muted)
+    {
+        AudioServer.SetBusMute(MasterBusIndex, muted);
+        EmitSignal(SignalName.MutedChanged, muted);
+    }
+
+    public void ToggleMute() => SetMuted(!Muted);
+
+    public override void _ExitTree()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 }
