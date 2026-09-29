@@ -1,12 +1,13 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using brickpong2D.scenes.hud.lives;
 
 public partial class Hud : CanvasLayer
 {
 	[Export] private Label _scoreLabel;
-	[Export] private Label _livesLabel;
 	[Export] private Label _messageLabel;
+	[Export] private LivesDisplay _livesDisplay;
 
 	public override void _Ready()
 	{
@@ -18,10 +19,10 @@ public partial class Hud : CanvasLayer
 	{
 		if (_scoreLabel == null)
 			throw new SystemException("_scoreLabel is not set in Hud.");
-		if (_livesLabel == null)
-			throw new SystemException("_livesLabel is not set in Hud.");
 		if (_messageLabel == null)
 			throw new SystemException("_messageLabel is not set in Hud.");
+		if (_livesDisplay == null)
+			throw new SystemException("_livesDisplay is not set in Hud.");
 	}
 
 	public void UpdateScore(int score)
@@ -32,8 +33,7 @@ public partial class Hud : CanvasLayer
 
 	public void UpdateLives(int lives)
 	{
-		var livesString = "Lives: " + lives.ToString();
-		_livesLabel.Text = livesString;
+		_livesDisplay.ShowLives(lives);
 	}
 
 	/// <summary>
