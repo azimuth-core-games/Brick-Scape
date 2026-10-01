@@ -27,6 +27,8 @@ public partial class MainMenu : Node
             throw new SystemException("_startButton is not set in MainMenu.");
         if (_quitButton == null)
             throw new SystemException("_quitButton is not set in MainMenu.");
+        if (_audioStream == null)
+            throw new SystemException("_audioStream is not set in MainMenu.");
     }
 
     private void OnStartButtonPressed() =>
