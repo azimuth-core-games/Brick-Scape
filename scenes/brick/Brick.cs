@@ -38,7 +38,7 @@ public partial class Brick : StaticBody2D, IPoolable
 
 	public void Hit()
 	{
-		SoundManager.Instance.PlaySfx(Sfx.BrickBreak, this.GlobalPosition);
+		EventBus.Instance.EmitSignal(EventBus.SignalName.BrickBroken, GlobalPosition);
 		EmitSignal(SignalName.BrickDestroyed, this, PointValue);
 	}
 }

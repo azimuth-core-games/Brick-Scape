@@ -11,7 +11,6 @@ public partial class MainLevel : Node2D
 	[Export] private Hud _hud;
 	[Export] private BrickGrid _brickGrid;
 	[Export] private Killzone _killZone;
-	private GameManager _gameManager;
 	
 	private NodePool<ball.Ball> _ballPool;
 
@@ -23,14 +22,12 @@ public partial class MainLevel : Node2D
 		SoundManager.Instance.StopMusic();
 		
 		_ballPool = new NodePool<ball.Ball>(_ballScene, this);
-		_gameManager = GameManager.Instance;
 
 		_killZone.BallLost += OnBallLost;
-		_gameManager.ScoreChanged += OnScoreChanged;
-		_gameManager.LivesChanged += OnLivesChanged;
-		_gameManager.GameOver += OnGameOver;
+		GameManager.Instance.ScoreChanged += OnScoreChanged;
+		GameManager.Instance.LivesChanged += OnLivesChanged;
+		GameManager.Instance.GameOver += OnGameOver;
 		_brickGrid.BrickDestroyed += OnBrickDestroyed;
-		
 		
 		NewGame();
 	}
@@ -55,7 +52,7 @@ public partial class MainLevel : Node2D
 		}
 		
 		_brickGrid.ResetGrid();
-		_gameManager.ResetGame();
+		GameManager.Instance.ResetGame();
 		
 		SpawnNewBall();
 	}
@@ -63,13 +60,12 @@ public partial class MainLevel : Node2D
 
 	private void OnBallLost(Node2D ball)
 	{
-		SoundManager.Instance.PlaySfx(Sfx.LifeLost);
 		_ballPool.Release((ball.Ball)ball);
 		
-		_gameManager.LoseLife();
-		if (_gameManager.Lives > 0)
+		GameManager.Instance.LoseLife();
+		if (GameManager.Instance.Lives > 0)
 		{
-			SoundManager.Instance.PlayUISfx(Sfx.LifeLost);
+			EventBus.Instance.EmitSignal(EventBus.SignalName.LifeLost);
 			SpawnNewBall();
 		}
 		
@@ -83,7 +79,7 @@ public partial class MainLevel : Node2D
 	
 	private void OnBrickDestroyed(int points)
 	{
-		_gameManager.AddScore(points);
+		GameManager.Instance.AddScore(points);
 	}
 	
 	private void OnScoreChanged(int newScore) => _hud.UpdateScore(newScore);
@@ -93,7 +89,6 @@ public partial class MainLevel : Node2D
 	{
 		try
 		{
-			SoundManager.Instance.PlaySfx(Sfx.GameOver);
 			await _hud.ShowGameOver();
 		}
 		catch (Exception e)
@@ -108,11 +103,11 @@ public partial class MainLevel : Node2D
 	// Prevents sending signals to previous scene instances.
 	public override void _ExitTree()
 	{
-		if (_gameManager == null)
+		if (GameManager.Instance == null)
 			return;
 		
-		_gameManager.ScoreChanged -= OnScoreChanged;
-		_gameManager.LivesChanged -= OnLivesChanged;
-		_gameManager.GameOver -= OnGameOver;
+		GameManager.Instance.ScoreChanged -= OnScoreChanged;
+		GameManager.Instance.LivesChanged -= OnLivesChanged;
+		GameManager.Instance.GameOver -= OnGameOver;
 	}
 }

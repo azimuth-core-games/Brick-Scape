@@ -1,4 +1,5 @@
 using System;
+using brickpong2D.scenes.ui;
 using Godot;
 
 namespace brickpong2D.autoload;
@@ -9,7 +10,7 @@ namespace brickpong2D.autoload;
 /// </summary>
 public partial class SoundToggle : CanvasLayer
 {
-    [Export] private Button _button;
+    [Export] private UiButton _button;
 
     public override void _Ready()
     {
@@ -18,7 +19,6 @@ public partial class SoundToggle : CanvasLayer
         // Keep keyboard input (arrows) going to the game, not this button
         _button.FocusMode = Control.FocusModeEnum.None;
         _button.Pressed += OnButtonPressed;
-        _button.MouseEntered += OnButtonHovered;
 
         SoundManager.Instance.MutedChanged += UpdateButton;
         UpdateButton(SoundManager.Instance.Muted);
@@ -30,15 +30,9 @@ public partial class SoundToggle : CanvasLayer
             throw new SystemException("_button is not set in SoundToggle.");
     }
 
-    private void OnButtonHovered()
-    {
-        SoundManager.Instance.PlayUISfx(Sfx.ButtonHover);
-    }
-
     private void OnButtonPressed()
     {
         SoundManager.Instance.ToggleMute();
-        SoundManager.Instance.PlayUISfx(Sfx.ButtonClick);
     }
 
     private void UpdateButton(bool muted)
