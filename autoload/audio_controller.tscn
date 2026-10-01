@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ghbxfonq4v4r"]
+
+[ext_resource type="Script" uid="uid://bwo8b1qxjip4o" path="res://autoload/AudioController.cs" id="1_2j1dg"]
+[ext_resource type="Resource" uid="uid://jdswldfmovhp" path="res://resources/sound_library.tres" id="2_m4652"]
+
+[node name="AudioController" type="Node" unique_id=456232150]
+script = ExtResource("1_2j1dg")
+_soundLibrary = ExtResource("2_m4652")
