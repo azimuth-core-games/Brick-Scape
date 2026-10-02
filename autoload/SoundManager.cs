@@ -74,16 +74,12 @@ public partial class SoundManager : Node
 	
 	public void StopMusic() => _musicPlayer.Stop();
 	
-	// volume in decibels
-	public void PlaySfx(AudioStream stream, Vector2? position = null)
+	// default sets position to (0,0) if not provided.
+	public void PlaySfx(AudioStream stream, Vector2 position = default)
 	{
 		var player = _sfxPlayers.Dequeue();
 		player.Stream = stream;
-		if (position != null)
-		{
-			player.Position = position.Value;
-		}
-
+		player.Position = position;
 		player.Play();
 		
 		_sfxPlayers.Enqueue(player);
