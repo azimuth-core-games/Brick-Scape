@@ -1,12 +1,15 @@
 using System;
+using brickpong2D.autoload;
+using brickpong2D.scenes.ui;
 using Godot;
 
 namespace brickpong2D.scenes.main_menu;
 
 public partial class MainMenu : Node
 {
-    [Export] private Button _startButton;
-    [Export] private Button _quitButton;
+    [Export] private UiButton  _startButton;
+    [Export] private UiButton _quitButton;
+    [Export] private AudioStream _audioStream;
 
     public override void _Ready()
     {
@@ -14,6 +17,8 @@ public partial class MainMenu : Node
         
         _startButton.Pressed += OnStartButtonPressed;
         _quitButton.Pressed += OnQuitButtonPressed;
+        
+        SoundManager.Instance.PlayMusic(_audioStream);
     }
 
     private void ValidateExports()
@@ -22,22 +27,13 @@ public partial class MainMenu : Node
             throw new SystemException("_startButton is not set in MainMenu.");
         if (_quitButton == null)
             throw new SystemException("_quitButton is not set in MainMenu.");
+        if (_audioStream == null)
+            throw new SystemException("_audioStream is not set in MainMenu.");
     }
 
-    private void OnStartButtonPressed()
-    {
-        GD.Print("Start button pressed");
-        if (brickpong2D.autoload.SceneManager.Instance == null)
-        {
-            GD.PrintErr("Scene Manager is not set.");
-            return;
-        }
-        brickpong2D.autoload.SceneManager.Instance.GoToLevel1();
-    }
+    private void OnStartButtonPressed() =>
+        SceneManager.Instance.GoToLevel1();
 
-    private void OnQuitButtonPressed()
-    {
-        GD.Print("Quit button pressed");
+    private void OnQuitButtonPressed() => 
         GetTree().Quit();
-    }
 }

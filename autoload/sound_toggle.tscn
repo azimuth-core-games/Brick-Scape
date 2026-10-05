@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b7k3m2xq8snt4"]
+
+[ext_resource type="Script" uid="uid://dfnw7dfgpsvrw" path="res://autoload/SoundToggle.cs" id="1_st0gl"]
+[ext_resource type="FontFile" uid="uid://bgt3sflcngb7t" path="res://assets/fonts/Minecraft.ttf" id="2_st0gl"]
+[ext_resource type="Script" uid="uid://bbpm41d872ww2" path="res://scenes/ui/UiButton.cs" id="3_u51r5"]
+
+[node name="SoundToggle" type="CanvasLayer" unique_id=1473920561 node_paths=PackedStringArray("_button")]
+layer = 100
+script = ExtResource("1_st0gl")
+_button = NodePath("BottomRightMargin/SoundButton")
+
+[node name="BottomRightMargin" type="MarginContainer" parent="." unique_id=902174633]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="SoundButton" type="Button" parent="BottomRightMargin" unique_id=1039671103]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
+theme_override_fonts/font = ExtResource("2_st0gl")
+theme_override_font_sizes/font_size = 16
+text = "SOUND: ON"
+script = ExtResource("3_u51r5")
+metadata/_custom_type_script = "uid://bbpm41d872ww2"
