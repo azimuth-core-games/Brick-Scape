@@ -22,7 +22,8 @@ public partial class LivesDisplay : HBoxContainer
 	{
 		for (int i = 0; i < _lives.Count; i++)
 		{
-			_lives[i].Visible = i < lives;
+			// Set heart to be transparent so size of parent stays same (hearts don't shift when losing lives)
+			_lives[i].SelfModulate = i < lives ? Colors.White : Colors.Transparent;
 		}
 	}
 }

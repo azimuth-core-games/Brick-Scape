@@ -41,7 +41,7 @@ uppercase = true
 layout_mode = 1
 offset_right = 96.0
 offset_bottom = 24.0
-theme_override_constants/margin_left = 40
+theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 
 [node name="ScoreLabel" type="Label" parent="Control/TopLeftMargin" unique_id=1931635584]
@@ -55,18 +55,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TopRightMargin" type="MarginContainer" parent="Control" unique_id=614148265]
+propagate_maximum_size = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -200.0
-offset_bottom = 64.0
+offset_left = -92.0
+offset_bottom = 23.0
 grow_horizontal = 0
 rotation = -0.002862565
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
 
 [node name="LivesDisplay" parent="Control/TopRightMargin" unique_id=1868658570 instance=ExtResource("3_c45xl")]
 layout_mode = 2
 size_flags_horizontal = 0
-offset_transform_position = Vector2(194.135, 0)
