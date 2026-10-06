@@ -4,15 +4,16 @@
 [ext_resource type="Script" uid="uid://cl7fark42c22f" path="res://scenes/hud/lives/LivesDisplay.cs" id="1_m0opu"]
 
 [node name="LivesDisplay" type="HBoxContainer" unique_id=1868658570]
-offset_right = 92.0
-offset_bottom = 23.0
+offset_right = 113.0
+offset_bottom = 29.0
 theme_override_constants/separation = 4
 script = ExtResource("1_m0opu")
 
 [node name="Heart" type="TextureRect" parent="." unique_id=1825165013]
 custom_minimum_size = Vector2(35, 29)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("1_4qo5r")
 expand_mode = 1
 stretch_mode = 5
@@ -20,7 +21,8 @@ stretch_mode = 5
 [node name="Heart3" type="TextureRect" parent="." unique_id=640113362]
 custom_minimum_size = Vector2(35, 29)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("1_4qo5r")
 expand_mode = 1
 stretch_mode = 5
@@ -28,7 +30,8 @@ stretch_mode = 5
 [node name="Heart2" type="TextureRect" parent="." unique_id=934881204]
 custom_minimum_size = Vector2(35, 29)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("1_4qo5r")
 expand_mode = 1
 stretch_mode = 5
