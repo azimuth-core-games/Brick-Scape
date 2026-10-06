@@ -11,7 +11,6 @@ public partial class MainLevel : Node2D
 	[Export] private Hud _hud;
 	[Export] private BrickGrid _brickGrid;
 	[Export] private Killzone _killZone;
-	private GameManager _gameManager;
 	
 	private NodePool<ball.Ball> _ballPool;
 
@@ -20,15 +19,15 @@ public partial class MainLevel : Node2D
 		//Check scenes have been set in editor
 		ValidateExports();
 		
+		SoundManager.Instance.StopMusic();
+		
 		_ballPool = new NodePool<ball.Ball>(_ballScene, this);
-		_gameManager = GameManager.Instance;
 
 		_killZone.BallLost += OnBallLost;
-		_gameManager.ScoreChanged += OnScoreChanged;
-		_gameManager.LivesChanged += OnLivesChanged;
-		_gameManager.GameOver += OnGameOver;
+		GameManager.Instance.ScoreChanged += OnScoreChanged;
+		GameManager.Instance.LivesChanged += OnLivesChanged;
+		GameManager.Instance.GameOver += OnGameOver;
 		_brickGrid.BrickDestroyed += OnBrickDestroyed;
-		
 		
 		NewGame();
 	}
@@ -41,6 +40,8 @@ public partial class MainLevel : Node2D
 			throw new SystemException("_brickGrid is not set in Main.");
 		if (_hud == null)
 			throw new SystemException("_hud is not set in Main.");
+		if (_killZone == null)
+			throw new SystemException("_killZone is not set in Main.");
 	}
 	
 	private void NewGame()
@@ -51,7 +52,7 @@ public partial class MainLevel : Node2D
 		}
 		
 		_brickGrid.ResetGrid();
-		_gameManager.ResetGame();
+		GameManager.Instance.ResetGame();
 		
 		SpawnNewBall();
 	}
@@ -60,25 +61,25 @@ public partial class MainLevel : Node2D
 	private void OnBallLost(Node2D ball)
 	{
 		_ballPool.Release((ball.Ball)ball);
-		GD.Print($"Ball pool decreased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 		
-		_gameManager.LoseLife();
-
-		if (_gameManager.Lives > 0)
+		GameManager.Instance.LoseLife();
+		if (GameManager.Instance.Lives > 0)
+		{
+			EventBus.Instance.EmitSignal(EventBus.SignalName.LifeLost);
 			SpawnNewBall();
+		}
+		
 	}
 	
 	private void SpawnNewBall()
 	{
 		var ball = _ballPool.Acquire();
 		ball.Position = new Vector2(400, 400);
-		
-		GD.Print($"Ball pool increased to {_ballPool.TotalCreated}, available: {_ballPool.AvailableCount}");
 	}
 	
 	private void OnBrickDestroyed(int points)
 	{
-		_gameManager.AddScore(points);
+		GameManager.Instance.AddScore(points);
 	}
 	
 	private void OnScoreChanged(int newScore) => _hud.UpdateScore(newScore);
@@ -102,11 +103,11 @@ public partial class MainLevel : Node2D
 	// Prevents sending signals to previous scene instances.
 	public override void _ExitTree()
 	{
-		if (_gameManager == null)
+		if (GameManager.Instance == null)
 			return;
 		
-		_gameManager.ScoreChanged -= OnScoreChanged;
-		_gameManager.LivesChanged -= OnLivesChanged;
-		_gameManager.GameOver -= OnGameOver;
+		GameManager.Instance.ScoreChanged -= OnScoreChanged;
+		GameManager.Instance.LivesChanged -= OnLivesChanged;
+		GameManager.Instance.GameOver -= OnGameOver;
 	}
 }
