@@ -2,12 +2,13 @@
 
 [ext_resource type="FontFile" uid="uid://bgt3sflcngb7t" path="res://assets/fonts/Minecraft.ttf" id="1_48c2t"]
 [ext_resource type="Script" uid="uid://b2d0mfxfrmtvj" path="res://scenes/hud/Hud.cs" id="1_cgeww"]
+[ext_resource type="PackedScene" uid="uid://bthu8nh60ivct" path="res://scenes/hud/lives/lives_display.tscn" id="3_c45xl"]
 
-[node name="HUD" type="CanvasLayer" unique_id=2037814647 node_paths=PackedStringArray("_scoreLabel", "_livesLabel", "_messageLabel")]
+[node name="HUD" type="CanvasLayer" unique_id=2037814647 node_paths=PackedStringArray("_scoreLabel", "_messageLabel", "_livesDisplay")]
 script = ExtResource("1_cgeww")
 _scoreLabel = NodePath("Control/TopLeftMargin/ScoreLabel")
-_livesLabel = NodePath("Control/TopRightMargin/LivesLabel")
 _messageLabel = NodePath("Control/MessageLabel")
+_livesDisplay = NodePath("Control/TopRightMargin/LivesDisplay")
 
 [node name="Control" type="Control" parent="." unique_id=500152537]
 layout_mode = 3
@@ -38,38 +39,33 @@ uppercase = true
 
 [node name="TopLeftMargin" type="MarginContainer" parent="Control" unique_id=583555134]
 layout_mode = 1
-offset_right = 5.0
-offset_bottom = 5.0
+offset_right = 96.0
+offset_bottom = 24.0
 theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 20
 
 [node name="ScoreLabel" type="Label" parent="Control/TopLeftMargin" unique_id=1931635584]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("1_48c2t")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 25
 text = "Score: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TopRightMargin" type="MarginContainer" parent="Control" unique_id=614148265]
+propagate_maximum_size = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -5.0
-offset_bottom = 5.0
+offset_left = -92.0
+offset_bottom = 23.0
 grow_horizontal = 0
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 
-[node name="LivesLabel" type="Label" parent="Control/TopRightMargin" unique_id=1667336711]
+[node name="LivesDisplay" parent="Control/TopRightMargin" unique_id=1868658570 instance=ExtResource("3_c45xl")]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("1_48c2t")
-theme_override_font_sizes/font_size = 24
-text = "Lives: 3"
-horizontal_alignment = 1
-vertical_alignment = 1
