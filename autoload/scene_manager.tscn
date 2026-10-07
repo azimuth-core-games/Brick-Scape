@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://0o547d8my43m" path="res://autoload/SceneManager.cs" id="1_tsl6u"]
 [ext_resource type="PackedScene" uid="uid://dm7o384o81pss" path="res://scenes/main_menu/main_menu.tscn" id="2_n4a6k"]
 [ext_resource type="PackedScene" uid="uid://c67yfrt80lwcp" path="res://scenes/levels/main_level.tscn" id="3_ln8fm"]
+[ext_resource type="PackedScene" uid="uid://byy48cnvalhda" path="res://scenes/victory/victory.tscn" id="4_n4a6k"]
 
 [node name="SceneManager" type="Node" unique_id=168330404]
 script = ExtResource("1_tsl6u")
 _mainMenuScene = ExtResource("2_n4a6k")
 _level1Scene = ExtResource("3_ln8fm")
+_victoryScene = ExtResource("4_n4a6k")

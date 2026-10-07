@@ -1,4 +1,5 @@
 using System;
+using brickpong2D.autoload;
 using brickpong2D.common;
 using brickpong2D.scenes.brick;
 using Godot;
@@ -68,7 +69,7 @@ public partial class BrickGrid : Node2D
 			for (var col = 0; col < _cols; col++)
 			{
 				var brick = _brickPool.Acquire();
-
+		
 				if (_brickSize == Vector2.Zero)
 					_brickSize = brick.Size;
 				
@@ -84,8 +85,13 @@ public partial class BrickGrid : Node2D
 
 	private void OnBrickDestroyed(Brick brick, int points)
 	{
-		GD.Print($"Bricks created: {_brickPool.TotalCreated}, available: {_brickPool.AvailableCount}");
 		_brickPool.Release(brick);
 		EmitSignal(SignalName.BrickDestroyed, points);
+
+		if (_brickPool.AvailableCount == _brickPool.TotalCreated)
+		{
+			// All bricks have been broken, signal Victory
+			EventBus.Instance.EmitSignal(EventBus.SignalName.Victory);
+		}
 	}
 }
