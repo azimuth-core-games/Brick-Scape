@@ -15,6 +15,8 @@ public partial class EventBus : Node
     public delegate void BrickBrokenEventHandler(Vector2 position);
     [Signal]
     public delegate void LifeLostEventHandler();
+    [Signal]
+    public delegate void VictoryEventHandler();
     
     // UI events
     [Signal]

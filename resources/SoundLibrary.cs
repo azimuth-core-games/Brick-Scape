@@ -12,6 +12,7 @@ public partial class SoundLibrary : Resource
     [Export] public AudioStream PaddleBounce { get; private set; }
     [Export] public AudioStream LifeLost { get; private set; }
     [Export] public AudioStream GameOver { get; private set; }
+    [Export] public AudioStream Victory { get; private set; }
     
     [ExportGroup("UI")]
     [Export] public AudioStream ButtonClick { get; private set; }
@@ -37,6 +38,8 @@ public partial class SoundLibrary : Resource
             throw new SystemException("ButtonClick sound not set in SoundLibrary");
         if (ButtonHover == null)
             throw new SystemException("ButtonHover sound not set in SoundLibrary");
+        if (Victory == null)
+            throw new SystemException("Victory sound not set in SoundLibrary");
         // if (MainMenuMusic == null)
         //     throw new SystemException("MainMenuMusic sound not set in SoundLibrary");
     }

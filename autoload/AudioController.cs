@@ -15,6 +15,7 @@ public partial class AudioController : Node
 		EventBus.Instance.BallHitWall += OnBallHitWall;
 		EventBus.Instance.BrickBroken += OnBrickBroken;
 		EventBus.Instance.LifeLost += OnLifeLost;
+		EventBus.Instance.Victory += OnVictory;
 		EventBus.Instance.ButtonHovered += OnButtonHovered;
 		EventBus.Instance.ButtonPressed += OnButtonPressed;
 
@@ -37,6 +38,8 @@ public partial class AudioController : Node
 		SoundManager.Instance.PlaySfx(_soundLibrary.BrickBreak, position);
 	private void OnLifeLost() => 
 		SoundManager.Instance.PlaySfx(_soundLibrary.LifeLost);
+	private void OnVictory() => 
+		SoundManager.Instance.PlaySfx(_soundLibrary.Victory);
 	private void OnGameOver() => 
 		SoundManager.Instance.PlaySfx(_soundLibrary.GameOver);
 	
@@ -56,6 +59,7 @@ public partial class AudioController : Node
 			EventBus.Instance.LifeLost -= OnLifeLost;
 			EventBus.Instance.ButtonHovered -= OnButtonHovered;
 			EventBus.Instance.ButtonPressed -= OnButtonPressed;
+			EventBus.Instance.Victory -= OnVictory;
 		}
 		if (GameManager.Instance != null)
 			GameManager.Instance.GameOver -= OnGameOver;
