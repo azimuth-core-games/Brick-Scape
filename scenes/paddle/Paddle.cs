@@ -21,10 +21,11 @@ public partial class Paddle : CharacterBody2D
 
 		var viewportWidth = GetViewportRect().Size.X;
 		var halfWidth = GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.X / 2;
+		var height = GetViewportRect().Size.Y - 50;  // give 50 px space between bottom of viewport and paddle
 
 		Position = new Godot.Vector2(
 			Mathf.Clamp(Position.X, halfWidth, viewportWidth - halfWidth),
-			Position.Y
+			height
 		);
 	}
 }
