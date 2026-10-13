@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://k2dflcjr3axu" path="res://assets/audio/hover_button_sound.wav" id="3_pqyhm"]
 [ext_resource type="AudioStream" uid="uid://yki3ji2hou1u" path="res://assets/audio/game_over_sound_louder_2.wav" id="4_xoi8l"]
 [ext_resource type="AudioStream" uid="uid://dehjgpplc8qhe" path="res://assets/audio/life_lost_sound.wav" id="5_m1r4o"]
+[ext_resource type="AudioStream" uid="uid://b0l3wlt41m2cv" path="res://assets/audio/retro_synthwave_arcade_music.ogg" id="6_402fu"]
 [ext_resource type="AudioStream" uid="uid://d31u7umihl15p" path="res://assets/audio/metal_hit_sound.wav" id="7_2pyeh"]
 [ext_resource type="AudioStream" uid="uid://b7gu2u6gd7ii8" path="res://assets/audio/victory_sound.wav" id="7_ceb5q"]
 [ext_resource type="AudioStream" uid="uid://1v7tohu8a464" path="res://assets/audio/wall_hit.wav" id="8_6l4gm"]
@@ -20,4 +21,5 @@ GameOver = ExtResource("4_xoi8l")
 Victory = ExtResource("7_ceb5q")
 ButtonClick = ExtResource("2_402fu")
 ButtonHover = ExtResource("3_pqyhm")
+MainMenuMusic = ExtResource("6_402fu")
 metadata/_custom_type_script = "uid://573fbtp87sp"

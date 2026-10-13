@@ -8,6 +8,8 @@ public partial class EventBus : Node
     
     // Game events
     [Signal]
+    public delegate void MainMenuScreenEventHandler();
+    [Signal]
     public delegate void StartGameEventHandler();
     [Signal]
     public delegate void BallHitPaddleEventHandler(Vector2 position);
@@ -25,8 +27,6 @@ public partial class EventBus : Node
     public delegate void ButtonHoveredEventHandler();
     [Signal]
     public delegate void ButtonPressedEventHandler();
-    [Signal]
-    public delegate void MainMenuScreenEventHandler();
     [Signal]
     public delegate void QuitGameEventHandler();
     

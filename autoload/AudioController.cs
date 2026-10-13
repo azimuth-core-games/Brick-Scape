@@ -18,8 +18,11 @@ public partial class AudioController : Node
 		EventBus.Instance.Victory += OnVictory;
 		EventBus.Instance.ButtonHovered += OnButtonHovered;
 		EventBus.Instance.ButtonPressed += OnButtonPressed;
+		EventBus.Instance.MainMenuScreen += OnMainMenuScreen;
 
 		GameManager.Instance.GameOver += OnGameOver;
+		
+		OnMainMenuScreen();
 	}
 
 	private void ValidateExports()
@@ -42,6 +45,8 @@ public partial class AudioController : Node
 		SoundManager.Instance.PlaySfx(_soundLibrary.Victory);
 	private void OnGameOver() => 
 		SoundManager.Instance.PlaySfx(_soundLibrary.GameOver);
+	private void OnMainMenuScreen() => 
+		SoundManager.Instance.PlayMusic(_soundLibrary.MainMenuMusic);
 	
 	// UI
 	private void OnButtonHovered() => 
