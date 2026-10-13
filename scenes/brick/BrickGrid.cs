@@ -14,16 +14,15 @@ public partial class BrickGrid : Node2D
 	
 	// allows selection of scene to use for grid (Brick)
 	[Export] private PackedScene _brickScene;
-
 	[Export] private int _rows = 7;
 	[Export] private int _cols = 16;
 	[Export] private int _brickSpacing = 4;
-	private Vector2 _brickSize;
 
 	// Padding added to top of grid in viewport
 	[Export] private int _paddingTopPixels = 75;
 	
 	private NodePool<brick.Brick> _brickPool;
+	private Vector2 _brickSize;
 
 	public override void _Ready()
 	{
