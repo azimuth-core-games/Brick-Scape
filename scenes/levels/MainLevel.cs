@@ -11,6 +11,7 @@ public partial class MainLevel : Node2D
 	[Export] private Hud _hud;
 	[Export] private BrickGrid _brickGrid;
 	[Export] private Killzone _killZone;
+	[Export] private Marker2D _ballMarker;
 	
 	private NodePool<ball.Ball> _ballPool;
 
@@ -20,7 +21,7 @@ public partial class MainLevel : Node2D
 		ValidateExports();
 		
 		SoundManager.Instance.StopMusic();
-		
+
 		_ballPool = new NodePool<ball.Ball>(_ballScene, this);
 
 		_killZone.BallLost += OnBallLost;
@@ -42,6 +43,8 @@ public partial class MainLevel : Node2D
 			throw new SystemException("_hud is not set in Main.");
 		if (_killZone == null)
 			throw new SystemException("_killZone is not set in Main.");
+		if (_ballMarker == null)
+			throw new SystemException("_ballMarker is not set in Main.");
 	}
 	
 	private void NewGame()
@@ -74,7 +77,7 @@ public partial class MainLevel : Node2D
 	private void SpawnNewBall()
 	{
 		var ball = _ballPool.Acquire();
-		ball.Position = new Vector2(400, 400);
+		ball.Position = _ballMarker.GlobalPosition;
 	}
 	
 	private void OnBrickDestroyed(int points)
