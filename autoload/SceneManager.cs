@@ -5,20 +5,18 @@ namespace brickpong2D.autoload;
 
 public partial class SceneManager : Node
 {
-    public static SceneManager Instance { get; private set; }
-    
-    [Export]
-    private PackedScene _mainMenuScene;
-
+    [Export] private PackedScene _mainMenuScene;
     [Export] private PackedScene _level1Scene;
     [Export] private PackedScene _victoryScene;
 
     public override void _Ready()
     {
-        Instance = this;
         ValidateExports();
         
         EventBus.Instance.Victory += GoToVictory;
+        EventBus.Instance.StartGame += GoToLevel1;
+        EventBus.Instance.MainMenuScreen += GoToMainMenu;
+        EventBus.Instance.QuitGame += QuitGame;
     }
 
     private void ValidateExports()
@@ -31,12 +29,12 @@ public partial class SceneManager : Node
             throw new SystemException("_victoryScene is not set in SceneManager.");
     }
 
-    public void GoToMainMenu()
+    private void GoToMainMenu()
     {
         GetTree().ChangeSceneToPacked(_mainMenuScene);
     }
 
-    public void GoToLevel1()
+   private void GoToLevel1()
     {
         GetTree().ChangeSceneToPacked(_level1Scene);
     }
@@ -45,13 +43,15 @@ public partial class SceneManager : Node
     {
         GetTree().ChangeSceneToPacked(_victoryScene);
     }
+    
+    private void QuitGame() => GetTree().Quit();
 
     public override void _ExitTree()
     {
-        if (EventBus.Instance != null)
-        {
-            EventBus.Instance.Victory -= GoToVictory;
-        }
+        EventBus.Instance.Victory -= GoToVictory;
+        EventBus.Instance.MainMenuScreen -= GoToMainMenu;
+        EventBus.Instance.StartGame -= GoToLevel1;
+        EventBus.Instance.QuitGame -= QuitGame;
     }
 
 }

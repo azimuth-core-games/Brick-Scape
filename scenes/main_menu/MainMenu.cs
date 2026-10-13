@@ -32,8 +32,8 @@ public partial class MainMenu : Node
     }
 
     private void OnStartButtonPressed() =>
-        SceneManager.Instance.GoToLevel1();
+        EventBus.Instance.EmitSignal(EventBus.SignalName.StartGame);
 
     private void OnQuitButtonPressed() => 
-        GetTree().Quit();
+        EventBus.Instance.EmitSignal(EventBus.SignalName.QuitGame);
 }

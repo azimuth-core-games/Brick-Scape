@@ -99,7 +99,7 @@ public partial class MainLevel : Node2D
 			GD.PrintErr("Error printing GameOver in MainLevel:", e.ToString());
 		}
 		
-		SceneManager.Instance.GoToMainMenu();
+		EventBus.Instance.EmitSignal(EventBus.SignalName.MainMenuScreen);
 	}
 
 	// Unsubscribe from signals when game finishes.

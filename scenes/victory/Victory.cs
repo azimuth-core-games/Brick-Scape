@@ -21,6 +21,6 @@ public partial class Victory : Node2D
 
 	private void OnMainMenuButtonPressed()
 	{
-		SceneManager.Instance.GoToMainMenu();
+		EventBus.Instance.EmitSignal(EventBus.SignalName.MainMenuScreen);
 	}
 }
