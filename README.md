@@ -2,8 +2,8 @@
 A nostalgic 2D brick pong style game. Break all the bricks by bouncing the ball on the paddle.  
 
 <p>
-	<img src="docs/screenshots/brick-scape-main-menu.png" width="500" alt="Main menu" />
-	<img src="docs/screenshots/brick-scape-gameplay.gif" width="500" alt="Gameplay" />
+	<img src="docs/screenshots/brick-scape-main-menu.png" width="400" alt="Main menu" />
+	<img src="docs/screenshots/brick-scape-gameplay.gif" width="400" alt="Gameplay" />
 </p>
 
 ## Features  
