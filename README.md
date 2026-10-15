@@ -37,7 +37,6 @@ assets/       Art, audio and fonts
 
 ## Credits  
 - **Font:** [Minecraft](https://www.dafont.com/minecraft.font)  by Craftron Gaming
-- All audio is royalty free from [Pixabay](https://pixabay.com/service/license-summary/)
 - **Music:** [Neon Gaming](https://pixabay.com/music/synthwave-neon-gaming-128925/) by dopestuff
 - **Sound effects:** 
 	- [Click Button](https://pixabay.com/sound-effects/film-special-effects-click-button-140881/) by Universfield
