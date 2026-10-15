@@ -48,4 +48,10 @@ assets/       Art, audio and fonts
 	- [Metal Slam 2](https://pixabay.com/sound-effects/film-special-effects-metal-slam-2-189784/) by floraphonic
 	- [ballhit](https://pixabay.com/sound-effects/film-special-effects-ballhit-352569/) by u_p2u1nij0ok
 	- [small explosion](https://pixabay.com/sound-effects/film-special-effects-small-explosion-103779/) by bevibeldesign (Freesound)
-- Pixel art: [alishcodes](https://github.com/alishcodes)  
+- Pixel art: [alishcodes](https://github.com/alishcodes)
+
+## License
+Code is licensed under the MIT License (see `LICENSE`).
+Third-party assets are not covered by this license:
+- Music and SFX: Pixabay (see individual creators above), Pixabay Content License
+- Font: Minecraft.ttf (see creator above), Creative Commons Attribution 4.0 (CC BY 4.0)
