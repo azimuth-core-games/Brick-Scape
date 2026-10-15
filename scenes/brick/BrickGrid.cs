@@ -55,10 +55,10 @@ public partial class BrickGrid : Node2D
 
 	private void CenterGrid()
 	{
-		var totalGridSize = new Vector2(_cols * _brickSize.X, _rows * _brickSize.Y);
-		var viewPortSize = GetViewportRect().Size;
+		var gridWidth = _cols * _brickSize.X + (_cols - 1) * _brickSpacing;
+		var viewportSize = GetViewportRect().Size;
 		
-		Position = new Vector2((viewPortSize.X - totalGridSize.X)/ 2f, _paddingTopPixels);
+		Position = new Vector2((viewportSize.X - gridWidth)/ 2f + _brickSize.X / 2f, _paddingTopPixels);
 	}
 
 	private void GenerateBrickGrid()
