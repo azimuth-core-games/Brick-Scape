@@ -51,7 +51,7 @@ assets/       Art, audio and fonts
 - Pixel art: [alishcodes](https://github.com/alishcodes)
 
 ## License
-Code is licensed under the MIT License (see `LICENSE`).
-Third-party assets are not covered by this license:
+- Code is licensed under the MIT License (see `LICENSE`).
+- Pixel art (`assets/art/`): [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), public domain, free to use for any purpose without attribution.
 - Music and SFX: Pixabay (see individual creators above), Pixabay Content License
 - Font: Minecraft.ttf (see creator above), Creative Commons Attribution 4.0 (CC BY 4.0)
