@@ -32,7 +32,7 @@ assets/       Art, audio and fonts
 ```  
   
 ## Tools  
-- Godot with C#  
+- Godot 4.7 (.NET / C#)
 - Aseprite
 
 ## Credits  
@@ -48,4 +48,4 @@ assets/       Art, audio and fonts
 	- [Metal Slam 2](https://pixabay.com/sound-effects/film-special-effects-metal-slam-2-189784/) by floraphonic
 	- [ballhit](https://pixabay.com/sound-effects/film-special-effects-ballhit-352569/) by u_p2u1nij0ok
 	- [small explosion](https://pixabay.com/sound-effects/film-special-effects-small-explosion-103779/) by bevibeldesign (Freesound)
-- Art: [alishcodes](https://github.com/alishcodes)  
+- Pixel art: [alishcodes](https://github.com/alishcodes)  
