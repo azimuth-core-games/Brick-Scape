@@ -1,8 +1,10 @@
 # Brick Scape
 A nostalgic 2D brick pong style game. Break all the bricks by bouncing the ball on the paddle.  
 
-![Main menu](docs/screenshots/brick-scape-main-menu.png)
-![Gameplay](docs/screenshots/brick-scape-gameplay.gif)
+<p>
+	<img src="docs/screenshots/brick-scape-main-menu.png" width="500" alt="Main menu" />
+	<img src="docs/screenshots/brick-scape-gameplay.gif" width="500" alt="Gameplay" />
+</p>
 
 ## Features  
 - 112 bricks to clear (7 rows × 16 columns)  
