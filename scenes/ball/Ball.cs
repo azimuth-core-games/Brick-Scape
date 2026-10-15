@@ -24,7 +24,7 @@ public partial class Ball : CharacterBody2D, IPoolable
 	{
 		Visible = true;
 		SetPhysicsProcess(true);
-		Velocity = InitialVelocity;
+		Velocity = InitialVelocity.Normalized() * Speed;
 		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
 	}
 
