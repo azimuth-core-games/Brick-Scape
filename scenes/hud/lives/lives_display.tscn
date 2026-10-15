@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bthu8nh60ivct"]
 
 [ext_resource type="Script" uid="uid://cl7fark42c22f" path="res://scenes/hud/lives/LivesDisplay.cs" id="1_m0opu"]
-[ext_resource type="Texture2D" uid="uid://wpc0v7geqwb3" path="res://assets/art/pink_heart1.png" id="2_m0opu"]
+[ext_resource type="Texture2D" uid="uid://wpc0v7geqwb3" path="res://assets/art/pink-heart.png" id="2_m0opu"]
 
 [node name="LivesDisplay" type="HBoxContainer" unique_id=1868658570]
 offset_right = 113.0
