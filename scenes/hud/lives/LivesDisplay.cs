@@ -13,7 +13,7 @@ public partial class LivesDisplay : HBoxContainer
 		{
 			if (child is TextureRect life)
 			{
-				_lives.Add(life);
+				_lives.Add(life); 
 			}
 		}
 	}
