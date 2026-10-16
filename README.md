@@ -26,7 +26,7 @@ A nostalgic 2D brick pong style game. Break all the bricks by bouncing the ball 
 ```  
 autoload/     Global singletons (EventBus, GameManager, SceneManager, SoundManager…)  
 common/       Shared code such as the generic NodePool  
-resources/    Custom resources (SoundLibrary)  
+resources/    Custom resources (SoundLibrary, UI Theme)  
 scenes/       Game scenes and their scripts (ball, brick, paddle, hud, levels…)  
 assets/       Art, audio and fonts  
 ```  
