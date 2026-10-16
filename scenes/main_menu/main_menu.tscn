@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dy3bmf704smgh" path="res://assets/art/space-bkg.png" id="1_0ebjn"]
 [ext_resource type="Script" uid="uid://jpwkskbc3218" path="res://scenes/main_menu/MainMenu.cs" id="1_ob46e"]
 [ext_resource type="FontFile" uid="uid://bgt3sflcngb7t" path="res://assets/fonts/Minecraft.ttf" id="2_ob46e"]
-[ext_resource type="AudioStream" uid="uid://b0l3wlt41m2cv" path="res://assets/audio/retro_synthwave_arcade_music.ogg" id="2_uqeha"]
 [ext_resource type="Script" uid="uid://bbpm41d872ww2" path="res://scenes/ui/UiButton.cs" id="4_uqeha"]
 
 [node name="MainMenu" type="Control" unique_id=371559359 node_paths=PackedStringArray("_startButton", "_quitButton")]
@@ -16,7 +15,6 @@ grow_vertical = 2
 script = ExtResource("1_ob46e")
 _startButton = NodePath("VBoxContainer/StartButton")
 _quitButton = NodePath("VBoxContainer/QuitButton")
-_audioStream = ExtResource("2_uqeha")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1834756256]
 layout_mode = 1
@@ -37,9 +35,7 @@ offset_right = 1006.0
 offset_bottom = 342.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
-theme_override_fonts/font = ExtResource("2_ob46e")
-theme_override_font_sizes/font_size = 124
+theme_type_variation = &"TitleLabel"
 text = "BRICK SCAPE"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1767165578]
@@ -49,18 +45,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -59.0
-offset_top = -270.0
-offset_right = 59.0
+offset_left = -78.75
+offset_top = -277.0
+offset_right = 78.75
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 6
 
 [node name="StartButton" type="Button" parent="VBoxContainer" unique_id=1807043639]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
-theme_override_fonts/font = ExtResource("2_ob46e")
-theme_override_font_sizes/font_size = 32
 text = "START"
 icon_alignment = 1
 script = ExtResource("4_uqeha")
@@ -68,7 +61,6 @@ metadata/_custom_type_script = "uid://bbpm41d872ww2"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1830068881]
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("2_ob46e")
 theme_override_font_sizes/font_size = 32

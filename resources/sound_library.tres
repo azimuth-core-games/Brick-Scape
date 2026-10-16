@@ -1,23 +1,25 @@
 [gd_resource type="Resource" script_class="SoundLibrary" format=3 uid="uid://jdswldfmovhp"]
 
-[ext_resource type="AudioStream" uid="uid://b60lfjtchxyhj" path="res://assets/audio/brick_break_sound.wav" id="1_ceb5q"]
+[ext_resource type="AudioStream" uid="uid://cauyybto5xjwo" path="res://assets/audio/freesound_community-small-explosion-103779.wav" id="1_402fu"]
 [ext_resource type="Script" uid="uid://573fbtp87sp" path="res://resources/SoundLibrary.cs" id="1_qqytu"]
-[ext_resource type="AudioStream" uid="uid://drefeqggvrtof" path="res://assets/audio/button_click_2.wav" id="2_402fu"]
-[ext_resource type="AudioStream" uid="uid://k2dflcjr3axu" path="res://assets/audio/hover_button_sound.wav" id="3_pqyhm"]
-[ext_resource type="AudioStream" uid="uid://yki3ji2hou1u" path="res://assets/audio/game_over_sound_louder_2.wav" id="4_xoi8l"]
-[ext_resource type="AudioStream" uid="uid://dehjgpplc8qhe" path="res://assets/audio/life_lost_sound.wav" id="5_m1r4o"]
-[ext_resource type="AudioStream" uid="uid://d31u7umihl15p" path="res://assets/audio/metal_hit_sound.wav" id="7_2pyeh"]
-[ext_resource type="AudioStream" uid="uid://b7gu2u6gd7ii8" path="res://assets/audio/victory_sound.wav" id="7_ceb5q"]
-[ext_resource type="AudioStream" uid="uid://1v7tohu8a464" path="res://assets/audio/wall_hit.wav" id="8_6l4gm"]
+[ext_resource type="AudioStream" uid="uid://cdocxn4610bi7" path="res://assets/audio/universfield-click-button-140881.wav" id="2_pqyhm"]
+[ext_resource type="AudioStream" uid="uid://0nf4ud6cj8mq" path="res://assets/audio/lesiakower-minimalist-button-hover-sound-effect-399749.wav" id="3_xoi8l"]
+[ext_resource type="AudioStream" uid="uid://dknphdm71j5h8" path="res://assets/audio/dragon-studio-game-over-retro-8bit-sfx-499656.wav" id="4_m1r4o"]
+[ext_resource type="AudioStream" uid="uid://frkc6cqqfqmy" path="res://assets/audio/lucadialessandro-arcade-fx-288597.wav" id="5_cvaph"]
+[ext_resource type="AudioStream" uid="uid://bhiasyj5gpno5" path="res://assets/audio/dopestuff-neon-gaming-128925.mp3" id="6_2pyeh"]
+[ext_resource type="AudioStream" uid="uid://dxjd3ulwvqrhb" path="res://assets/audio/floraphonic-metal-slam-2-189784.wav" id="7_6l4gm"]
+[ext_resource type="AudioStream" uid="uid://baskltt327lc6" path="res://assets/audio/emand_edroff-victory-bell-success-fanfare-576275.wav" id="8_748mq"]
+[ext_resource type="AudioStream" uid="uid://b08prx03dd4vr" path="res://assets/audio/u_p2u1nij0ok-ballhit-352569.wav" id="9_q0ke4"]
 
 [resource]
 script = ExtResource("1_qqytu")
-BrickBreak = ExtResource("1_ceb5q")
-WallBounce = ExtResource("8_6l4gm")
-PaddleBounce = ExtResource("7_2pyeh")
-LifeLost = ExtResource("5_m1r4o")
-GameOver = ExtResource("4_xoi8l")
-Victory = ExtResource("7_ceb5q")
-ButtonClick = ExtResource("2_402fu")
-ButtonHover = ExtResource("3_pqyhm")
+BrickBreak = ExtResource("1_402fu")
+WallBounce = ExtResource("9_q0ke4")
+PaddleBounce = ExtResource("7_6l4gm")
+LifeLost = ExtResource("5_cvaph")
+GameOver = ExtResource("4_m1r4o")
+Victory = ExtResource("8_748mq")
+ButtonClick = ExtResource("2_pqyhm")
+ButtonHover = ExtResource("3_xoi8l")
+MainMenuMusic = ExtResource("6_2pyeh")
 metadata/_custom_type_script = "uid://573fbtp87sp"

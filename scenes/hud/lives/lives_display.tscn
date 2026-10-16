@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bthu8nh60ivct"]
 
-[ext_resource type="Texture2D" uid="uid://l0tqoff7v0fy" path="res://assets/art/red_heart.png" id="1_4qo5r"]
 [ext_resource type="Script" uid="uid://cl7fark42c22f" path="res://scenes/hud/lives/LivesDisplay.cs" id="1_m0opu"]
+[ext_resource type="Texture2D" uid="uid://wpc0v7geqwb3" path="res://assets/art/pink-heart.png" id="2_m0opu"]
 
 [node name="LivesDisplay" type="HBoxContainer" unique_id=1868658570]
 offset_right = 113.0
@@ -14,7 +14,7 @@ custom_minimum_size = Vector2(35, 29)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("1_4qo5r")
+texture = ExtResource("2_m0opu")
 expand_mode = 1
 stretch_mode = 5
 
@@ -23,7 +23,7 @@ custom_minimum_size = Vector2(35, 29)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("1_4qo5r")
+texture = ExtResource("2_m0opu")
 expand_mode = 1
 stretch_mode = 5
 
@@ -32,6 +32,6 @@ custom_minimum_size = Vector2(35, 29)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("1_4qo5r")
+texture = ExtResource("2_m0opu")
 expand_mode = 1
 stretch_mode = 5

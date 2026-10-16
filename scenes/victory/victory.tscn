@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bggumpmjjvd3x" path="res://scenes/victory/Victory.cs" id="1_cb2ca"]
 [ext_resource type="Script" uid="uid://co1fiq8akgxlp" path="res://scenes/firework/FireworkSpawner.cs" id="1_sd6rc"]
 [ext_resource type="PackedScene" uid="uid://c24r2wsbb5wbb" path="res://scenes/firework/fireworks_particle.tscn" id="2_cb2ca"]
-[ext_resource type="FontFile" uid="uid://bgt3sflcngb7t" path="res://assets/fonts/Minecraft.ttf" id="2_u87pk"]
 [ext_resource type="Script" uid="uid://bbpm41d872ww2" path="res://scenes/ui/UiButton.cs" id="3_sd6rc"]
 
 [node name="Victory" type="Node2D" unique_id=943062198 node_paths=PackedStringArray("_mainMenuButton")]
@@ -44,9 +43,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
-theme_override_fonts/font = ExtResource("2_u87pk")
-theme_override_font_sizes/font_size = 124
+theme_type_variation = &"TitleLabel"
 text = "VICTORY!"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2116359061]
@@ -63,9 +60,6 @@ grow_vertical = 0
 
 [node name="MainMenuButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=275784925]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
-theme_override_fonts/font = ExtResource("2_u87pk")
-theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 script = ExtResource("3_sd6rc")
 metadata/_custom_type_script = "uid://bbpm41d872ww2"

@@ -41,6 +41,10 @@ project/assembly_name="brick-pong-2D"
 
 ball=""
 
+[gui]
+
+theme/custom="uid://bnpkri0o5dlah"
+
 [input]
 
 move_left={

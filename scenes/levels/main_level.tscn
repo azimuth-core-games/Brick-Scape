@@ -18,12 +18,13 @@ b = Vector2(1152, 648)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_svowp"]
 b = Vector2(1152, 0)
 
-[node name="MainLevel" type="Node2D" unique_id=1486628709 node_paths=PackedStringArray("_hud", "_brickGrid", "_killZone")]
+[node name="MainLevel" type="Node2D" unique_id=1486628709 node_paths=PackedStringArray("_hud", "_brickGrid", "_killZone", "_ballMarker")]
 script = ExtResource("1_h35hl")
 _ballScene = ExtResource("2_h35hl")
 _hud = NodePath("HUD")
 _brickGrid = NodePath("BrickGrid")
 _killZone = NodePath("Killzone")
+_ballMarker = NodePath("BallMarker")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=239418751]
 layer = -1
@@ -62,6 +63,9 @@ collision_mask = 0
 shape = SubResource("SegmentShape2D_svowp")
 
 [node name="BrickGrid" parent="." unique_id=115992363 instance=ExtResource("5_erkku")]
+
+[node name="BallMarker" type="Marker2D" parent="." unique_id=1863739211]
+position = Vector2(608, 400)
 
 [node name="Killzone" parent="." unique_id=322296096 instance=ExtResource("6_63vgv")]
 

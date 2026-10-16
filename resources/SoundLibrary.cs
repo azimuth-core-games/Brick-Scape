@@ -18,9 +18,8 @@ public partial class SoundLibrary : Resource
     [Export] public AudioStream ButtonClick { get; private set; }
     [Export] public AudioStream ButtonHover { get; private set; }
     
-    // Keep music separate for now.
-    // [ExportGroup("Music")]
-    // [Export] public AudioStream MainMenuMusic { get; private set; }
+    [ExportGroup("Music")]
+    [Export] public AudioStream MainMenuMusic { get; private set; }
 
     public void Validate()
     {
@@ -40,8 +39,7 @@ public partial class SoundLibrary : Resource
             throw new SystemException("ButtonHover sound not set in SoundLibrary");
         if (Victory == null)
             throw new SystemException("Victory sound not set in SoundLibrary");
-        // if (MainMenuMusic == null)
-        //     throw new SystemException("MainMenuMusic sound not set in SoundLibrary");
+        if (MainMenuMusic == null)
+            throw new SystemException("MainMenuMusic sound not set in SoundLibrary");
     }
-    
 }

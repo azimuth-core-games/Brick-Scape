@@ -1,0 +1,34 @@
+[gd_resource type="Theme" format=3 uid="uid://bnpkri0o5dlah"]
+
+[ext_resource type="FontFile" uid="uid://bgt3sflcngb7t" path="res://assets/fonts/Minecraft.ttf" id="1_cviax"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m7jai"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qosx5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cviax"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fgeqy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yl303"]
+
+[resource]
+default_font = ExtResource("1_cviax")
+default_font_size = 32
+Button/colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
+Button/colors/font_focus_color = Color(0.95686275, 0.88235295, 0.9490196, 1)
+Button/colors/font_hover_color = Color(0.95686275, 0.88235295, 0.9490196, 1)
+Button/colors/font_hover_pressed_color = Color(0.8784314, 0.27058825, 0.48235294, 1)
+Button/colors/font_pressed_color = Color(0.8784314, 0.27058825, 0.48235294, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_m7jai")
+Button/styles/focus = SubResource("StyleBoxEmpty_qosx5")
+Button/styles/hover = SubResource("StyleBoxEmpty_cviax")
+Button/styles/normal = SubResource("StyleBoxEmpty_fgeqy")
+Button/styles/pressed = SubResource("StyleBoxEmpty_yl303")
+Label/colors/font_color = Color(0.91764706, 0.8627451, 0.9411765, 1)
+MessageLabel/base_type = &"Label"
+MessageLabel/colors/font_color = Color(0.8784314, 0.27058825, 0.48235294, 1)
+MessageLabel/font_sizes/font_size = 64
+TitleLabel/base_type = &"Label"
+TitleLabel/colors/font_color = Color(0.7294118, 0.5647059, 0.7529412, 1)
+TitleLabel/font_sizes/font_size = 124
