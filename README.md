@@ -12,7 +12,7 @@ A nostalgic 2D brick pong style game. Break all the bricks by bouncing the ball 
 - Score tracking and 3 lives, shown as hearts  
 - Victory screen with fireworks  
 - Retro arcade style music and sound effects, with a sound on/off toggle  
-- Custom pixel art made in Aseprite
+- Custom pixel art made with Aseprite
 
 ## Controls  
 | Action            | Input         |
