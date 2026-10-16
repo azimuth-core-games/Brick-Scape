@@ -53,4 +53,4 @@ assets/       Art, audio and fonts
 - Code is licensed under the MIT License (see `LICENSE`).
 - Pixel art (`assets/art/`): [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), public domain, free to use for any purpose without attribution.
 - Music and SFX: Pixabay (see individual creators above), [Pixabay Content License](https://pixabay.com/service/license-summary/)
-- Font: Minecraft.ttf (see creator above), Creative Commons Attribution 4.0 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en)
+- Font: Minecraft.ttf (see creator above), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en), Creative Commons Attribution 4.0
