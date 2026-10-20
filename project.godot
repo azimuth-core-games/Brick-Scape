@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="brick-pong-2D"
+config/name="Brick Scape"
+config/version="1.0.0"
 run/main_scene="uid://dm7o384o81pss"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
@@ -72,3 +73,4 @@ move_right={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true

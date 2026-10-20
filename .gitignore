@@ -42,3 +42,6 @@ obj/
 .claude/
 CLAUDE.md
 CLAUDE.local.md
+
+# Exported game builds
+builds/
