@@ -35,6 +35,19 @@ assets/       Art, audio and fonts
 - Godot 4.7 (.NET / C#)
 - Aseprite
 
+## Download and Play
+Download and play on [itch.io](https://alishcodes.itch.io/brick-scape) for Windows, macOS, and Linux systems.
+
+## Building from Source
+Requirements:
+- [Godot 4.7 .NET edition](https://godotengine.org/download) (must use the version to run C#)
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+
+1. Clone the repo
+2. Open or Import `project.godot` from the cloned `Brick-Scape` folder in Godot 4.7 .NET
+3. Run the game with `F5` if using Windows or Linux and `Command + B` if using macOS
+4. To export the project select **Project -> Export** with the desired export templates (Windows, Linux, macOS, etc)
+
 ## Credits  
 - **Font:** [Minecraft](https://www.dafont.com/minecraft.font)  by Craftron Gaming
 - **Music:** [Neon Gaming](https://pixabay.com/music/synthwave-neon-gaming-128925/) by dopestuff
